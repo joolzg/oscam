@@ -19,6 +19,7 @@ DS_CFLAGS  ?= -c
 CROSS      ?= $(DS_CROSS)
 
 LIB_PTHREAD ?= -lpthread
+LIB_MATH    ?= -lm
 
 CC		= $(CROSS)$(DS_CC)
 AR		= $(CROSS)$(DS_AR)
@@ -28,7 +29,7 @@ RANLIB		= $(CROSS)$(DS_RL)
 CFLAGS		= $(DS_OPTS) $(KFLAG) $(DS_CFLAGS)
 LDFLAGS		= $(DS_OPTS) $(DS_LDFLAGS)
 ARFLAGS		= $(DS_ARFLAGS)
-LIBS		= $(DS_LIBS) $(OS_LIBS) $(LIB_PTHREAD) $(LIBSSL)
+LIBS		= $(DS_LIBS) $(OS_LIBS) $(LIB_MATH) $(LIB_PTHREAD) $(LIBSSL)
 export		CC AR STRIP RANLIB CFLAGS LDFLAGS ARFLAGS
 
 GENERAL		= Makefile Maketype globals.h oscam-config.h
