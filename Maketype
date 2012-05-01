@@ -16,11 +16,13 @@ DS_RL      ?= ranlib
 DS_ST      ?= strip
 DS_ARFLAGS ?= -rvsl
 DS_CFLAGS  ?= -c
+CROSS      ?= $(DS_CROSS)
 
-CC		= $(DS_CC)
-AR		= $(DS_AR)
-STRIP		= $(DS_ST)
-RANLIB		= $(DS_RL)
+CC		= $(CROSS)$(DS_CC)
+AR		= $(CROSS)$(DS_AR)
+STRIP		= $(CROSS)$(DS_ST)
+RANLIB		= $(CROSS)$(DS_RL)
+
 CFLAGS		= $(DS_OPTS) $(KFLAG) $(DS_CFLAGS)
 LDFLAGS		= $(DS_OPTS) $(DS_LDFLAGS)
 ARFLAGS		= $(DS_ARFLAGS)

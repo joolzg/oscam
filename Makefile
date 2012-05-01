@@ -171,11 +171,7 @@ cross-i386-pc-freebsd:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_FREEBSD -DBSD_COMP -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=i386-pc-freebsd5.4-gcc \
-		DS_AR=i386-pc-freebsd5.4-ar \
-		DS_LD=i386-pc-freebsd5.4-ld \
-		DS_RL=i386-pc-freebsd5.4-ranlib \
-		DS_ST=i386-pc-freebsd5.4-strip
+		DS_CROSS=i386-pc-freebsd5.4-
 
 ######################################################################
 #
@@ -189,11 +185,7 @@ cross-powerpc-tuxbox-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DPPC -DWITH_LIBCRYPTO -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=powerpc-tuxbox-linux-gnu-gcc \
-		DS_AR=powerpc-tuxbox-linux-gnu-ar \
-		DS_LD=powerpc-tuxbox-linux-gnu-ld \
-		DS_RL=powerpc-tuxbox-linux-gnu-ranlib \
-		DS_ST=powerpc-tuxbox-linux-gnu-strip
+		DS_CROSS=powerpc-tuxbox-linux-gnu-
 
 cross-powerpc-tuxbox-linux-uclibc:
 	@-$(MAKE) --no-print-directory \
@@ -202,11 +194,7 @@ cross-powerpc-tuxbox-linux-uclibc:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DPPC -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=powerpc-tuxbox-linux-uclibc-gcc \
-		DS_AR=powerpc-tuxbox-linux-uclibc-ar \
-		DS_LD=powerpc-tuxbox-linux-uclibc-ld \
-		DS_RL=powerpc-tuxbox-linux-uclibc-ranlib \
-		DS_ST=powerpc-tuxbox-linux-uclibc-strip
+		DS_CROSS=powerpc-tuxbox-linux-uclibc-
 
 ######################################################################
 #
@@ -220,11 +208,7 @@ cross-powerpc-405-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DTRIPLEDRAGON -DWITH_LIBCRYPTO -DSTB04SCI -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=powerpc-405-linux-gnu-gcc \
-		DS_AR=powerpc-405-linux-gnu-ar \
-		DS_LD=powerpc-405-linux-gnu-ld \
-		DS_RL=powerpc-405-linux-gnu-ranlib \
-		DS_ST=powerpc-405-linux-gnu-strip
+		DS_CROSS=powerpc-405-linux-gnu-
 
 ######################################################################
 #
@@ -238,11 +222,7 @@ cross-sh4-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DSH4 -DTUXBOX -DWITH_LIBCRYPTO -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=sh4-linux-gcc \
-		DS_AR=sh4-linux-ar \
-		DS_LD=sh4-linux-ld \
-		DS_RL=sh4-linux-ranlib \
-		DS_ST=sh4-linux-strip
+		DS_CROSS=sh4-linux-
 
 cross-sh4-linux-stapi:
 	@-$(MAKE) --no-print-directory \
@@ -251,11 +231,7 @@ cross-sh4-linux-stapi:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DSH4 -DWITH_STAPI -DWITH_LIBCRYPTO -DTUXBOX -DSCI_DEV -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=sh4-linux-gcc \
-		DS_AR=sh4-linux-ar \
-		DS_LD=sh4-linux-ld \
-		DS_RL=sh4-linux-ranlib \
-		DS_ST=sh4-linux-strip
+		DS_CROSS=sh4-linux-
 
 ######################################################################
 #
@@ -269,11 +245,7 @@ cross-i386-pc-cygwin:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_CYGWIN32 -DWITH_LIBCRYPTO -DCS_CONFDIR=${CS_CONFDIR} -static -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=i686-pc-cygwin-gcc \
-		DS_AR=i686-pc-cygwin-ar \
-		DS_LD=i686-pc-cygwin-ld \
-		DS_RL=i686-pc-cygwin-ranlib \
-		DS_ST=i686-pc-cygwin-strip
+		DS_CROSS=i686-pc-cygwin-
 
 ######################################################################
 #
@@ -331,11 +303,7 @@ cross-sparc-sun-solaris2.7:
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_SOLARIS -DOS_SOLARIS7 -DBSD_COMP -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_LDFLAGS="-lsocket" \
-		DS_CC=sparc-sun-solaris2.7-gcc \
-		DS_AR=sparc-sun-solaris2.7-ar \
-		DS_LD=sparc-sun-solaris2.7-ld \
-		DS_RL=sparc-sun-solaris2.7-ranlib \
-		DS_ST=sparc-sun-solaris2.7-strip
+		DS_CROSS=sparc-sun-solaris2.7-
 
 ######################################################################
 #
@@ -363,11 +331,7 @@ cross-rs6000-ibm-aix4.2:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthreads" \
 		DS_OPTS="-O2 -DOS_AIX -DOS_AIX42 -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=rs6000-ibm-aix4.2-gcc \
-		DS_AR=rs6000-ibm-aix4.2-ar \
-		DS_LD=rs6000-ibm-aix4.2-ld \
-		DS_RL=rs6000-ibm-aix4.2-ranlib \
-		DS_ST=rs6000-ibm-aix4.2-strip
+		DS_CROSS=rs6000-ibm-aix4.2-
 
 ######################################################################
 #
@@ -381,11 +345,7 @@ cross-mips-sgi-irix6.5:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_IRIX -DOS_IRIX65 -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=mips-sgi-irix6.5-gcc \
-		DS_AR=mips-sgi-irix6.5-ar \
-		DS_LD=mips-sgi-irix6.5-ld \
-		DS_RL=mips-sgi-irix6.5-ranlib \
-		DS_ST=mips-sgi-irix6.5-strip
+		DS_CROSS=mips-sgi-irix6.5-
 
 ######################################################################
 #
@@ -400,11 +360,7 @@ cross-mipsel-router-linux-uclibc927:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=mipsel-linux-uclibc-gcc \
-		DS_AR=mipsel-linux-uclibc-ar \
-		DS_LD=mipsel-linux-uclibc-ld \
-		DS_RL=mipsel-linux-uclibc-ranlib \
-		DS_ST=mipsel-linux-uclibc-strip
+		DS_CROSS=mipsel-linux-uclibc-
 
 ######################################################################
 #
@@ -419,11 +375,7 @@ cross-mipsel-router-linux-uclibc928:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=mipsel-linux-uclibc-gcc \
-		DS_AR=mipsel-linux-uclibc-ar \
-		DS_LD=mipsel-linux-uclibc-ld \
-		DS_RL=mipsel-linux-uclibc-ranlib \
-		DS_ST=mipsel-linux-uclibc-strip
+		DS_CROSS=mipsel-linux-uclibc-
 
 ######################################################################
 #
@@ -438,11 +390,7 @@ cross-mipsel-router-linux-uclibc929:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=mipsel-linux-uclibc-gcc \
-		DS_AR=mipsel-linux-uclibc-ar \
-		DS_LD=mipsel-linux-uclibc-ld \
-		DS_RL=mipsel-linux-uclibc-ranlib \
-		DS_ST=mipsel-linux-uclibc-strip
+		DS_CROSS=mipsel-linux-uclibc-
 
 ######################################################################
 #
@@ -457,11 +405,7 @@ cross-mipsel-router-linux-uclibc929-static:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=mipsel-linux-uclibc-gcc \
-		DS_AR=mipsel-linux-uclibc-ar \
-		DS_LD=mipsel-linux-uclibc-ld \
-		DS_RL=mipsel-linux-uclibc-ranlib \
-		DS_ST=mipsel-linux-uclibc-strip
+		DS_CROSS=mipsel-linux-uclibc-
 
 ######################################################################
 #
@@ -476,11 +420,7 @@ cross-mips-router-linux-uclibc930:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPS -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=mips-linux-uclibc-gcc \
-		DS_AR=mips-linux-uclibc-ar \
-		DS_LD=mips-linux-uclibc-ld \
-		DS_RL=mips-linux-uclibc-ranlib \
-		DS_ST=mips-linux-uclibc-strip
+		DS_CROSS=mips-linux-uclibc-
 
 ######################################################################
 #
@@ -495,11 +435,7 @@ cross-mips-router-linux-uclibc931:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPS -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=mips-linux-uclibc-gcc \
-		DS_AR=mips-linux-uclibc-ar \
-		DS_LD=mips-linux-uclibc-ld \
-		DS_RL=mips-linux-uclibc-ranlib \
-		DS_ST=mips-linux-uclibc-strip
+		DS_CROSS=mips-linux-uclibc-
 
 ######################################################################
 #
@@ -513,11 +449,7 @@ cross-mipsel-fonera2:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-Iopenssl-include -O2 -DOS_LINUX -DWITH_LIBCRYPTO -DMIPSEL -DUCLIBC -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=mips-linux-gcc \
-		DS_AR=mips-linux-ar \
-		DS_LD=mips-linux-ld \
-		DS_RL=mips-linux-ranlib \
-		DS_ST=mips-linux-strip
+		DS_CROSS=mips-linux-
 
 ######################################################################
 #
@@ -531,11 +463,7 @@ cross-mipsel-tuxbox-linux-glibc:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DWITH_LIBCRYPTO -DMIPSEL -DCS_CONFDIR='\"/var/tuxbox/config\"' -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=mipsel-linux-glibc-gcc \
-		DS_AR=mipsel-linux-glibc-ar \
-		DS_LD=mipsel-linux-glibc-ld \
-		DS_RL=mipsel-linux-glibc-ranlib \
-		DS_ST=mipsel-linux-glibc-strip
+		DS_CROSS=mipsel-linux-glibc-
 
 cross-mipsel-tuxbox-linux:
 	@-$(MAKE) --no-print-directory \
@@ -544,11 +472,7 @@ cross-mipsel-tuxbox-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DWITH_LIBCRYPTO -DMIPSEL -DCS_CONFDIR='\"/var/tuxbox/config\"' -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC=mipsel-linux-gcc \
-		DS_AR=mipsel-linux-ar \
-		DS_LD=mipsel-linux-ld \
-		DS_RL=mipsel-linux-ranlib \
-		DS_ST=mipsel-linux-strip
+		DS_CROSS=mipsel-linux-
 
 ######################################################################
 #
@@ -589,11 +513,7 @@ cross-arm-nslu2-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-DOS_LINUX -O2 -DARM -DALIGNMENT -DCS_CONFDIR=${CS_CONFDIR} -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC="armv5b-softfloat-linux-gcc" \
-		DS_AR="armv5b-softfloat-linux-ar" \
-		DS_LD="armv5b-softfloat-linux-ld" \
-		DS_RL="armv5b-softfloat-linux-ranlib" \
-		DS_ST="armv5b-softfloat-linux-strip"
+		DS_CROSS=armv5b-softfloat-linux-
 
 ######################################################################
 #
@@ -607,11 +527,9 @@ cross-armBE-unknown-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-DOS_LINUX -O2 -DARM -DALIGNMENT -DCS_CONFDIR=${CS_CONFDIR} -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC="arm-linux-gcc -mbig-endian" \
-		DS_AR="arm-linux-ar" \
-		DS_LD="arm-linux-ld -EB" \
-		DS_RL="arm-linux-ranlib" \
-		DS_ST="arm-linux-strip"
+		DS_CROSS=arm-linux- \
+		DS_CC="gcc -mbig-endian" \
+		DS_LD="ld -EB"
 
 cross-armBE-unkown-linux: cross-armBE-unknown-linux
 
@@ -627,10 +545,8 @@ cross-armLE-unknown-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-DOS_LINUX -O2 -DARM -DALIGNMENT -DCS_CONFDIR=${CS_CONFDIR}  -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CC="arm-linux-gcc -mlittle-endian" \
-		DS_AR="arm-linux-ar" \
-		DS_LD="arm-linux-ld -EL" \
-		DS_RL="arm-linux-ranlib" \
-		DS_ST="arm-linux-strip"
+		DS_CROSS=arm-linux- \
+		DS_CC="gcc -mlittle-endian" \
+		DS_LD="ld -EL"
 
 cross-armLE-unkown-linux: cross-armLE-unknown-linux
