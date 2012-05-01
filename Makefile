@@ -65,14 +65,13 @@ nptar:	clean
 i386-pc-linux:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_LINUX -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_OPTS="-O2 -DOS_LINUX -DCS_CONFDIR=${CS_CONFDIR} -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 
 i386-pc-linux-debug:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
-		OS_LIBS="-lcrypto -lrt" \
-		DS_OPTS="-O0 -DHAVE_DVBAPI -ggdb -DOS_LINUX -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		OS_LIBS="-lrt" \
+		DS_OPTS="-O0 -DHAVE_DVBAPI -ggdb -DOS_LINUX -DCS_CONFDIR=${CS_CONFDIR} -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 
 ######################################################################
 #
@@ -83,8 +82,8 @@ i386-pc-linux-libusb:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
         	LIBUSB="/usr/local/lib/libusb-1.0.a" \
-		OS_LIBS="-lcrypto -lrt" \
-		DS_OPTS="-O2 -DOS_LINUX -DLIBUSB -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""' -I/usr/local/include" \
+		OS_LIBS="-lrt" \
+		DS_OPTS="-O2 -DOS_LINUX -DLIBUSB -DCS_CONFDIR=${CS_CONFDIR} -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""' -I/usr/local/include" \
 
 ######################################################################
 #
@@ -94,8 +93,8 @@ i386-pc-linux-libusb:
 i386-pc-linux-pcsc:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
-		OS_LIBS="-lcrypto -lpcsclite" \
-		DS_OPTS="-O2 -DOS_LINUX -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -DHAVE_PCSC=1 -I/usr/include/PCSC -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		OS_LIBS="-lpcsclite" \
+		DS_OPTS="-O2 -DOS_LINUX -DCS_CONFDIR=${CS_CONFDIR} -DHAVE_PCSC=1 -I/usr/include/PCSC -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 
 ######################################################################
 #
@@ -106,8 +105,8 @@ i386-pc-linux-pcsc-libusb:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
         	LIBUSB="/usr/local/lib/libusb-1.0.a" \
-		OS_LIBS="-lcrypto -lrt -lpcsclite" \
-		DS_OPTS="-O2 -DOS_LINUX -DLIBUSB -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -DHAVE_PCSC=1 -I/usr/include/PCSC -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""' -I/usr/local/include" \
+		OS_LIBS="-lrt -lpcsclite" \
+		DS_OPTS="-O2 -DOS_LINUX -DLIBUSB -DCS_CONFDIR=${CS_CONFDIR} -DHAVE_PCSC=1 -I/usr/include/PCSC -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""' -I/usr/local/include" \
 
 ######################################################################
 #
@@ -117,8 +116,7 @@ i386-pc-linux-pcsc-libusb:
 macosx-native:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_MACOSX -DNEED_DAEMON -DHAVE_PTHREAD_H -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -DHAVE_PCSC=1 -m32 -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -Winline -Wall -Wextra -finline-functions -fomit-frame-pointer -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_OPTS="-O2 -DOS_MACOSX -DNEED_DAEMON -DHAVE_PTHREAD_H -DCS_CONFDIR=${CS_CONFDIR} -DHAVE_PCSC=1 -m32 -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -Winline -Wall -Wextra -finline-functions -fomit-frame-pointer -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_LDFLAGS="-framework PCSC -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk" \
 
 ######################################################################
@@ -130,8 +128,7 @@ macosx-libusb:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
 		LIBUSB="/usr/local/lib/libusb-1.0.a" \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_MACOSX -DNEED_DAEMON -DHAVE_PTHREAD_H -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -DHAVE_PCSC=1 -DLIBUSB -m32 -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -Winline -Wall -Wextra -finline-functions -fomit-frame-pointer -D'CS_SVN_VERSION="\"$(SVN_REV)\""' -I/usr/local/include" \
+		DS_OPTS="-O2 -DOS_MACOSX -DNEED_DAEMON -DHAVE_PTHREAD_H -DCS_CONFDIR=${CS_CONFDIR} -DHAVE_PCSC=1 -DLIBUSB -m32 -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -Winline -Wall -Wextra -finline-functions -fomit-frame-pointer -D'CS_SVN_VERSION="\"$(SVN_REV)\""' -I/usr/local/include" \
 		DS_LDFLAGS="-framework PCSC -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -Wl,-framework -Wl,IOKit -Wl,-framework -Wl,CoreFoundation -Wl,-prebind -no-undefined" \
 
 
@@ -143,6 +140,7 @@ macosx-libusb:
 i386-pc-freebsd:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
+		NO_LIBCRYPTO=1 \
 		DS_OPTS="-O2 -DOS_FREEBSD -DBSD_COMP  -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 
 ######################################################################
@@ -153,6 +151,7 @@ i386-pc-freebsd:
 cross-i386-pc-freebsd:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
+		NO_LIBCRYPTO=1 \
 		DS_OPTS="-O2 -DOS_FREEBSD -DBSD_COMP -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=i386-pc-freebsd5.4-
 
@@ -164,13 +163,14 @@ cross-i386-pc-freebsd:
 cross-powerpc-tuxbox-linux:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto -ldl" \
-		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DPPC -DWITH_LIBCRYPTO -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		OS_LIBS="-ldl" \
+		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DPPC -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=powerpc-tuxbox-linux-gnu-
 
 cross-powerpc-tuxbox-linux-uclibc:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
+		NO_LIBCRYPTO=1 \
 		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DPPC -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=powerpc-tuxbox-linux-uclibc-
 
@@ -182,8 +182,8 @@ cross-powerpc-tuxbox-linux-uclibc:
 cross-powerpc-405-linux:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto -ldl" \
-		DS_OPTS="-O2 -DOS_LINUX -DTRIPLEDRAGON -DWITH_LIBCRYPTO -DSTB04SCI -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		OS_LIBS="-ldl" \
+		DS_OPTS="-O2 -DOS_LINUX -DTRIPLEDRAGON -DSTB04SCI -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=powerpc-405-linux-gnu-
 
 ######################################################################
@@ -194,15 +194,14 @@ cross-powerpc-405-linux:
 cross-sh4-linux:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_LINUX -DSH4 -DTUXBOX -DWITH_LIBCRYPTO -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_OPTS="-O2 -DOS_LINUX -DSH4 -DTUXBOX -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=sh4-linux-
 
 cross-sh4-linux-stapi:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto -L./stapi -loscam_stapi" \
-		DS_OPTS="-O2 -DOS_LINUX -DSH4 -DWITH_STAPI -DWITH_LIBCRYPTO -DTUXBOX -DSCI_DEV -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		OS_LIBS="-L./stapi -loscam_stapi" \
+		DS_OPTS="-O2 -DOS_LINUX -DSH4 -DWITH_STAPI -DTUXBOX -DSCI_DEV -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=sh4-linux-
 
 ######################################################################
@@ -213,8 +212,7 @@ cross-sh4-linux-stapi:
 cross-i386-pc-cygwin:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_CYGWIN32 -DWITH_LIBCRYPTO -DCS_CONFDIR=${CS_CONFDIR} -static -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_OPTS="-O2 -DOS_CYGWIN32 -DCS_CONFDIR=${CS_CONFDIR} -static -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=i686-pc-cygwin-
 
 ######################################################################
@@ -225,8 +223,7 @@ cross-i386-pc-cygwin:
 i386-pc-cygwin:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_CYGWIN32 -DWITH_LIBCRYPTO -DCS_CONFDIR='\".\"' -I /tmp/include -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_OPTS="-O2 -DOS_CYGWIN32 -DCS_CONFDIR='\".\"' -I /tmp/include -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 
 
 ######################################################################
@@ -237,8 +234,8 @@ i386-pc-cygwin:
 i386-pc-cygwin-pcsc:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto -lwinscard" \
-		DS_OPTS="-O2 -DOS_CYGWIN32 -DWITH_LIBCRYPTO -D_WIN32 -DCS_CONFDIR=${CS_CONFDIR} -DHAVE_PCSC=1 -I /tmp/include -I ./cygwin -I/usr/include/w32api -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		OS_LIBS="-lwinscard" \
+		DS_OPTS="-O2 -DOS_CYGWIN32 -D_WIN32 -DCS_CONFDIR=${CS_CONFDIR} -DHAVE_PCSC=1 -I /tmp/include -I ./cygwin -I/usr/include/w32api -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_LDFLAGS="-L/cygdrive/c/WINDOWS/system32/" \
 
 ######################################################################
@@ -251,8 +248,8 @@ i386-pc-cygwin-libusb:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
 		LIBUSB="/usr/lib/libusb-1.0.a" \
-		OS_LIBS="-lcrypto -lSetupAPI -lOle32 -lshell32" \
-		DS_OPTS="-O2 -DOS_CYGWIN32 -DWITH_LIBCRYPTO -D_WIN32 -DLIBUSB -DCS_CONFDIR=${CS_CONFDIR} -I /tmp/include -I ./cygwin -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		OS_LIBS="-lSetupAPI -lOle32 -lshell32" \
+		DS_OPTS="-O2 -DOS_CYGWIN32 -D_WIN32 -DLIBUSB -DCS_CONFDIR=${CS_CONFDIR} -I /tmp/include -I ./cygwin -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 
 ######################################################################
 #
@@ -262,6 +259,7 @@ i386-pc-cygwin-libusb:
 cross-sparc-sun-solaris2.7:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
+		NO_LIBCRYPTO=1 \
 		DS_OPTS="-O2 -DOS_SOLARIS -DOS_SOLARIS7 -DBSD_COMP -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_LDFLAGS="-lsocket" \
 		DS_CROSS=sparc-sun-solaris2.7-
@@ -274,8 +272,8 @@ cross-sparc-sun-solaris2.7:
 opensolaris:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto -lnsl" \
-		DS_OPTS="-O2 -DOS_SOLARIS -DOS_SOLARIS7 -DWITH_LIBCRYPTO -DBSD_COMP -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		OS_LIBS="-lnsl" \
+		DS_OPTS="-O2 -DOS_SOLARIS -DOS_SOLARIS7 -DBSD_COMP -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_LDFLAGS="-lsocket" \
 
 ######################################################################
@@ -287,6 +285,7 @@ cross-rs6000-ibm-aix4.2:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
 		LIB_PTHREAD="-lpthreads" \
+		NO_LIBCRYPTO=1 \
 		DS_OPTS="-O2 -DOS_AIX -DOS_AIX42 -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=rs6000-ibm-aix4.2-
 
@@ -298,6 +297,7 @@ cross-rs6000-ibm-aix4.2:
 cross-mips-sgi-irix6.5:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
+		NO_LIBCRYPTO=1 \
 		DS_OPTS="-O2 -DOS_IRIX -DOS_IRIX65 -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=mips-sgi-irix6.5-
 
@@ -310,6 +310,7 @@ cross-mipsel-router-linux-uclibc927:
 	@-mipsel-linux-uclibc-setlib 0.9.27
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
+		NO_LIBCRYPTO=1 \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=mipsel-linux-uclibc-
 
@@ -322,8 +323,7 @@ cross-mipsel-router-linux-uclibc928:
 	@-mipsel-linux-uclibc-setlib 0.9.28
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=mipsel-linux-uclibc-
 
 ######################################################################
@@ -335,8 +335,7 @@ cross-mipsel-router-linux-uclibc929:
 	@-mipsel-linux-uclibc-setlib 0.9.29
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=mipsel-linux-uclibc-
 
 ######################################################################
@@ -348,8 +347,7 @@ cross-mipsel-router-linux-uclibc929-static:
 	@-mipsel-linux-uclibc-setlib 0.9.29
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=mipsel-linux-uclibc-
 
 ######################################################################
@@ -361,8 +359,7 @@ cross-mips-router-linux-uclibc930:
 	@-mips-linux-uclibc-setlib 0.9.30
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_LINUX -DMIPS -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_OPTS="-O2 -DOS_LINUX -DMIPS -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=mips-linux-uclibc-
 
 ######################################################################
@@ -374,8 +371,7 @@ cross-mips-router-linux-uclibc931:
 	@-mips-linux-uclibc-setlib 0.9.31
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_LINUX -DMIPS -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_OPTS="-O2 -DOS_LINUX -DMIPS -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=mips-linux-uclibc-
 
 ######################################################################
@@ -386,8 +382,8 @@ cross-mips-router-linux-uclibc931:
 cross-mipsel-fonera2:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-Lopenssl-lib -lcrypto" \
-		DS_OPTS="-Iopenssl-include -O2 -DOS_LINUX -DWITH_LIBCRYPTO -DMIPSEL -DUCLIBC -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		OS_LIBS="-Lopenssl-lib" \
+		DS_OPTS="-Iopenssl-include -O2 -DOS_LINUX -DMIPSEL -DUCLIBC -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=mips-linux-
 
 ######################################################################
@@ -398,15 +394,13 @@ cross-mipsel-fonera2:
 cross-mipsel-tuxbox-linux-glibc:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DWITH_LIBCRYPTO -DMIPSEL -DCS_CONFDIR='\"/var/tuxbox/config\"' -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DMIPSEL -DCS_CONFDIR='\"/var/tuxbox/config\"' -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=mipsel-linux-glibc-
 
 cross-mipsel-tuxbox-linux:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		OS_LIBS="-lcrypto" \
-		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DWITH_LIBCRYPTO -DMIPSEL -DCS_CONFDIR='\"/var/tuxbox/config\"' -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DMIPSEL -DCS_CONFDIR='\"/var/tuxbox/config\"' -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=mipsel-linux-
 
 ######################################################################
@@ -417,6 +411,7 @@ cross-mipsel-tuxbox-linux:
 hppa1.1-hp-hpux10.20:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
+		NO_LIBCRYPTO=1 \
 		DS_OPTS="-O2 -DOS_HPUX -DOS_HPUX10 -D_XOPEN_SOURCE_EXTENDED -DCS_CONFDIR=${CS_CONFDIR} -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 
 ######################################################################
@@ -427,6 +422,7 @@ hppa1.1-hp-hpux10.20:
 alpha-dec-osf5.1:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
+		NO_LIBCRYPTO=1 \
 		DS_OPTS="-O2 -DOS_OSF -DOS_OSF5 -DCS_CONFDIR=${CS_CONFDIR} -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		XDS_CFLAGS="-I/usr/include -c" \
 
@@ -438,6 +434,7 @@ alpha-dec-osf5.1:
 cross-arm-nslu2-linux:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP="$(subst cross-,,$@)" \
+		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_LINUX -O2 -DARM -DALIGNMENT -DCS_CONFDIR=${CS_CONFDIR} -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=armv5b-softfloat-linux-
 
@@ -449,6 +446,7 @@ cross-arm-nslu2-linux:
 cross-armBE-unknown-linux:
 	-$(MAKE) --no-print-directory \
 		-f Maketype TYP="$(subst cross-,,$@)" \
+		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_LINUX -O2 -DARM -DALIGNMENT -DCS_CONFDIR=${CS_CONFDIR} -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=arm-linux- \
 		DS_CC="gcc -mbig-endian" \
@@ -462,6 +460,7 @@ cross-armBE-unknown-linux:
 cross-armLE-unknown-linux:
 	-$(MAKE) --no-print-directory \
 		-f Maketype TYP="$(subst cross-,,$@)" \
+		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_LINUX -O2 -DARM -DALIGNMENT -DCS_CONFDIR=${CS_CONFDIR}  -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		DS_CROSS=arm-linux- \
 		DS_CC="gcc -mlittle-endian" \
