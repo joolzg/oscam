@@ -589,7 +589,6 @@ cross-arm-nslu2-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-DOS_LINUX -O2 -DARM -DALIGNMENT -DCS_CONFDIR=${CS_CONFDIR} -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_AWK="awk" \
 		DS_CC="armv5b-softfloat-linux-gcc" \
 		DS_AR="armv5b-softfloat-linux-ar" \
 		DS_LD="armv5b-softfloat-linux-ld" \
@@ -608,7 +607,6 @@ cross-armBE-unkown-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-DOS_LINUX -O2 -DARM -DALIGNMENT -DCS_CONFDIR=${CS_CONFDIR} -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_AWK="awk" \
 		DS_CC="arm-linux-gcc -mbig-endian" \
 		DS_AR="arm-linux-ar" \
 		DS_LD="arm-linux-ld -EB" \
@@ -627,7 +625,6 @@ cross-armLE-unkown-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-DOS_LINUX -O2 -DARM -DALIGNMENT -DCS_CONFDIR=${CS_CONFDIR}  -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_AWK="awk" \
 		DS_CC="arm-linux-gcc -mlittle-endian" \
 		DS_AR="arm-linux-ar" \
 		DS_LD="arm-linux-ld -EL" \
