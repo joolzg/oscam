@@ -600,7 +600,7 @@ cross-arm-nslu2-linux:
 #	ARM crosscompiler (big-endian)
 #
 ######################################################################
-cross-armBE-unkown-linux:
+cross-armBE-unknown-linux:
 	-$(MAKE) --no-print-directory \
 		-f Maketype TYP="$(subst cross-,,$@)" \
 		OS_LIBS="-lm" \
@@ -618,7 +618,7 @@ cross-armBE-unkown-linux:
 #	ARM crosscompiler (little-endian)
 #
 ######################################################################
-cross-armLE-unkown-linux:
+cross-armLE-unknown-linux:
 	-$(MAKE) --no-print-directory \
 		-f Maketype TYP="$(subst cross-,,$@)" \
 		OS_LIBS="-lm" \
