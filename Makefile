@@ -68,14 +68,6 @@ i386-pc-linux:
 		OS_LIBS="-lcrypto -lm" \
 		OS_CULI="-lncurses" \
 		DS_OPTS="-O2 -DOS_LINUX -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -pthread -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
 
 i386-pc-linux-debug:
 	@-$(MAKE) --no-print-directory \
@@ -83,13 +75,7 @@ i386-pc-linux-debug:
 		OS_LIBS="-lcrypto -lm -lrt" \
 		OS_CULI="-lncurses" \
 		DS_OPTS="-O0 -DHAVE_DVBAPI -ggdb -pthread -DOS_LINUX -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib
+
 ######################################################################
 #
 #	LINUX native with libusb (smartreader)
@@ -102,14 +88,6 @@ i386-pc-linux-libusb:
 		OS_LIBS="-lcrypto -lm -lrt" \
 		OS_CULI="-lncurses" \
 		DS_OPTS="-O2 -DOS_LINUX -DLIBUSB -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -pthread -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""' -I/usr/local/include" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
 
 ######################################################################
 #
@@ -123,14 +101,6 @@ i386-pc-linux-pcsc:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpcsclite" \
 		DS_OPTS="-O2 -DOS_LINUX -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -pthread -DHAVE_PCSC=1 -I/usr/include/PCSC -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
 
 ######################################################################
 #
@@ -145,14 +115,6 @@ i386-pc-linux-pcsc-libusb:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpcsclite" \
 		DS_OPTS="-O2 -DOS_LINUX -DLIBUSB -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -pthread -DHAVE_PCSC=1 -I/usr/include/PCSC -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""' -I/usr/local/include" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
 
 ######################################################################
 #
@@ -166,14 +128,7 @@ macosx-native:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_MACOSX -DNEED_DAEMON -DHAVE_PTHREAD_H -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -DHAVE_PCSC=1 -m32 -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -Winline -Wall -Wextra -finline-functions -fomit-frame-pointer -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
 		DS_LDFLAGS="-framework PCSC -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
 
 ######################################################################
 #
@@ -188,14 +143,7 @@ macosx-libusb:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_MACOSX -DNEED_DAEMON -DHAVE_PTHREAD_H -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -DHAVE_PCSC=1 -DLIBUSB -m32 -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -Winline -Wall -Wextra -finline-functions -fomit-frame-pointer -D'CS_SVN_VERSION="\"$(SVN_REV)\""' -I/usr/local/include" \
-		DS_CFLAGS="-c" \
 		DS_LDFLAGS="-framework PCSC -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -Wl,-framework -Wl,IOKit -Wl,-framework -Wl,CoreFoundation -Wl,-prebind -no-undefined" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
 
 
 ######################################################################
@@ -210,14 +158,6 @@ i386-pc-freebsd:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_FREEBSD -DBSD_COMP  -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
 
 ######################################################################
 #
@@ -231,9 +171,6 @@ cross-i386-pc-freebsd:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_FREEBSD -DBSD_COMP -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=i386-pc-freebsd5.4-gcc \
 		DS_AR=i386-pc-freebsd5.4-ar \
 		DS_LD=i386-pc-freebsd5.4-ld \
@@ -252,9 +189,6 @@ cross-powerpc-tuxbox-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DPPC -DWITH_LIBCRYPTO -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=powerpc-tuxbox-linux-gnu-gcc \
 		DS_AR=powerpc-tuxbox-linux-gnu-ar \
 		DS_LD=powerpc-tuxbox-linux-gnu-ld \
@@ -268,9 +202,6 @@ cross-powerpc-tuxbox-linux-uclibc:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DPPC -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=powerpc-tuxbox-linux-uclibc-gcc \
 		DS_AR=powerpc-tuxbox-linux-uclibc-ar \
 		DS_LD=powerpc-tuxbox-linux-uclibc-ld \
@@ -289,9 +220,6 @@ cross-powerpc-405-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DTRIPLEDRAGON -DWITH_LIBCRYPTO -DSTB04SCI -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=powerpc-405-linux-gnu-gcc \
 		DS_AR=powerpc-405-linux-gnu-ar \
 		DS_LD=powerpc-405-linux-gnu-ld \
@@ -310,9 +238,6 @@ cross-sh4-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DSH4 -DTUXBOX -DWITH_LIBCRYPTO -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=sh4-linux-gcc \
 		DS_AR=sh4-linux-ar \
 		DS_LD=sh4-linux-ld \
@@ -326,9 +251,6 @@ cross-sh4-linux-stapi:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DSH4 -DWITH_STAPI -DWITH_LIBCRYPTO -DTUXBOX -DSCI_DEV -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=sh4-linux-gcc \
 		DS_AR=sh4-linux-ar \
 		DS_LD=sh4-linux-ld \
@@ -347,9 +269,6 @@ cross-i386-pc-cygwin:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_CYGWIN32 -DWITH_LIBCRYPTO -DCS_CONFDIR=${CS_CONFDIR} -static -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=i686-pc-cygwin-gcc \
 		DS_AR=i686-pc-cygwin-ar \
 		DS_LD=i686-pc-cygwin-ld \
@@ -368,14 +287,6 @@ i386-pc-cygwin:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_CYGWIN32 -DWITH_LIBCRYPTO -DCS_CONFDIR='\".\"' -I /tmp/include -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
 
 
 ######################################################################
@@ -390,14 +301,7 @@ i386-pc-cygwin-pcsc:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_CYGWIN32 -DWITH_LIBCRYPTO -D_WIN32 -DCS_CONFDIR=${CS_CONFDIR} -DHAVE_PCSC=1 -I /tmp/include -I ./cygwin -I/usr/include/w32api -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
 		DS_LDFLAGS="-L/cygdrive/c/WINDOWS/system32/" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
 
 ######################################################################
 #
@@ -413,15 +317,6 @@ i386-pc-cygwin-libusb:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_CYGWIN32 -DWITH_LIBCRYPTO -D_WIN32 -DLIBUSB -DCS_CONFDIR=${CS_CONFDIR} -I /tmp/include -I ./cygwin -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
-
 
 ######################################################################
 #
@@ -435,9 +330,7 @@ cross-sparc-sun-solaris2.7:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_SOLARIS -DOS_SOLARIS7 -DBSD_COMP -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
 		DS_LDFLAGS="-lsocket" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=sparc-sun-solaris2.7-gcc \
 		DS_AR=sparc-sun-solaris2.7-ar \
 		DS_LD=sparc-sun-solaris2.7-ld \
@@ -456,14 +349,7 @@ opensolaris:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_SOLARIS -DOS_SOLARIS7 -DWITH_LIBCRYPTO -DBSD_COMP -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
 		DS_LDFLAGS="-lsocket" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
 
 ######################################################################
 #
@@ -477,9 +363,6 @@ cross-rs6000-ibm-aix4.2:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthreads" \
 		DS_OPTS="-O2 -DOS_AIX -DOS_AIX42 -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=rs6000-ibm-aix4.2-gcc \
 		DS_AR=rs6000-ibm-aix4.2-ar \
 		DS_LD=rs6000-ibm-aix4.2-ld \
@@ -498,9 +381,6 @@ cross-mips-sgi-irix6.5:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_IRIX -DOS_IRIX65 -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=mips-sgi-irix6.5-gcc \
 		DS_AR=mips-sgi-irix6.5-ar \
 		DS_LD=mips-sgi-irix6.5-ld \
@@ -520,9 +400,6 @@ cross-mipsel-router-linux-uclibc927:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=mipsel-linux-uclibc-gcc \
 		DS_AR=mipsel-linux-uclibc-ar \
 		DS_LD=mipsel-linux-uclibc-ld \
@@ -542,9 +419,6 @@ cross-mipsel-router-linux-uclibc928:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=mipsel-linux-uclibc-gcc \
 		DS_AR=mipsel-linux-uclibc-ar \
 		DS_LD=mipsel-linux-uclibc-ld \
@@ -564,9 +438,6 @@ cross-mipsel-router-linux-uclibc929:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=mipsel-linux-uclibc-gcc \
 		DS_AR=mipsel-linux-uclibc-ar \
 		DS_LD=mipsel-linux-uclibc-ld \
@@ -586,9 +457,6 @@ cross-mipsel-router-linux-uclibc929-static:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPSEL -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="-static" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=mipsel-linux-uclibc-gcc \
 		DS_AR=mipsel-linux-uclibc-ar \
 		DS_LD=mipsel-linux-uclibc-ld \
@@ -608,9 +476,6 @@ cross-mips-router-linux-uclibc930:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPS -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=mips-linux-uclibc-gcc \
 		DS_AR=mips-linux-uclibc-ar \
 		DS_LD=mips-linux-uclibc-ld \
@@ -630,9 +495,6 @@ cross-mips-router-linux-uclibc931:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DMIPS -DWITH_LIBCRYPTO -DUCLIBC -DUSE_GPIO -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=mips-linux-uclibc-gcc \
 		DS_AR=mips-linux-uclibc-ar \
 		DS_LD=mips-linux-uclibc-ld \
@@ -651,9 +513,6 @@ cross-mipsel-fonera2:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-Iopenssl-include -O2 -DOS_LINUX -DWITH_LIBCRYPTO -DMIPSEL -DUCLIBC -DCS_CONFDIR=${CS_CONFDIR} -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=mips-linux-gcc \
 		DS_AR=mips-linux-ar \
 		DS_LD=mips-linux-ld \
@@ -672,9 +531,6 @@ cross-mipsel-tuxbox-linux-glibc:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DWITH_LIBCRYPTO -DMIPSEL -DCS_CONFDIR='\"/var/tuxbox/config\"' -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=mipsel-linux-glibc-gcc \
 		DS_AR=mipsel-linux-glibc-ar \
 		DS_LD=mipsel-linux-glibc-ld \
@@ -688,9 +544,6 @@ cross-mipsel-tuxbox-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DWITH_LIBCRYPTO -DMIPSEL -DCS_CONFDIR='\"/var/tuxbox/config\"' -static-libgcc -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_CC=mipsel-linux-gcc \
 		DS_AR=mipsel-linux-ar \
 		DS_LD=mipsel-linux-ld \
@@ -709,14 +562,6 @@ hppa1.1-hp-hpux10.20:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_HPUX -DOS_HPUX10 -D_XOPEN_SOURCE_EXTENDED -DCS_CONFDIR=${CS_CONFDIR} -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=gcc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
 
 ######################################################################
 #
@@ -731,14 +576,6 @@ alpha-dec-osf5.1:
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-O2 -DOS_OSF -DOS_OSF5 -DCS_CONFDIR=${CS_CONFDIR} -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 		XDS_CFLAGS="-I/usr/include -c" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
-		DS_CC=cc \
-		DS_AR=ar \
-		DS_LD=ld \
-		DS_RL=ranlib \
-		DS_ST=strip
 
 ######################################################################
 #
@@ -752,9 +589,6 @@ cross-arm-nslu2-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-DOS_LINUX -O2 -DARM -DALIGNMENT -DCS_CONFDIR=${CS_CONFDIR} -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_AWK="awk" \
 		DS_CC="armv5b-softfloat-linux-gcc" \
 		DS_AR="armv5b-softfloat-linux-ar" \
@@ -774,9 +608,6 @@ cross-armBE-unkown-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-DOS_LINUX -O2 -DARM -DALIGNMENT -DCS_CONFDIR=${CS_CONFDIR} -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_AWK="awk" \
 		DS_CC="arm-linux-gcc -mbig-endian" \
 		DS_AR="arm-linux-ar" \
@@ -796,9 +627,6 @@ cross-armLE-unkown-linux:
 		OS_CULI="-lncurses" \
 		OS_PTLI="-lpthread" \
 		DS_OPTS="-DOS_LINUX -O2 -DARM -DALIGNMENT -DCS_CONFDIR=${CS_CONFDIR}  -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
-		DS_CFLAGS="-c" \
-		DS_LDFLAGS="" \
-		DS_ARFLAGS="-rvsl" \
 		DS_AWK="awk" \
 		DS_CC="arm-linux-gcc -mlittle-endian" \
 		DS_AR="arm-linux-ar" \
