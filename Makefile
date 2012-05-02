@@ -72,7 +72,7 @@ i386-pc-linux-debug:
 		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
 		OS_LIBS="-lrt" \
 		DEBUG=1 \
-		DS_OPTS="-DHAVE_DVBAPI -DOS_LINUX" \
+		DS_OPTS="-DOS_LINUX" \
 
 ######################################################################
 #
