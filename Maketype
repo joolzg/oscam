@@ -16,7 +16,9 @@ DS_RL      ?= ranlib
 DS_ST      ?= strip
 DS_ARFLAGS ?= -rvsl
 DS_CFLAGS  ?= -c
+
 CROSS      ?= $(DS_CROSS)
+CONF_DIR   ?= $(DS_CONFDIR)
 
 LIB_PTHREAD ?= -lpthread
 LIB_MATH    ?= -lm
@@ -27,6 +29,9 @@ LIB_CRYPTO =
 else
 DEFINES += -DWITH_LIBCRYPTO
 endif
+
+DEFINES += -DCS_CONFDIR="\"$(CONF_DIR)\""
+DEFINES += -DCS_SVN_VERSION="\"$(SVN_REV)\""
 
 CC		= $(CROSS)$(DS_CC)
 AR		= $(CROSS)$(DS_AR)
