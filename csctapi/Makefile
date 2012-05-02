@@ -23,13 +23,14 @@ OBJECTS1	= $(LIBFILE1)(atr.o) \
 all:		$(LIBFILE1) 
 
 $(LIBFILE1):	$(OBJECTS1)
-		-@$(RANLIB) $@
+	-$(Q)$(RANLIB) $@
 
 $(OBJECTS1):	$(GENERAL)
 
 .c.a:
-		$(CC) $(CFLAGS) $<
-		$(AR) $(ARFLAGS) $@ $*.o
-		-@rm -f $*.o
+	$(SAY) "CC	csctapi/$<"
+	$(Q)$(CC) $(CFLAGS) $<
+	$(Q)$(AR) $(ARFLAGS) $@ $*.o
+	-@rm -f $*.o
 
 .SUFFIXES:	.o .c .a
