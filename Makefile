@@ -17,6 +17,9 @@ win:	cross-i386-pc-cygwin
 cygwin: i386-pc-cygwin
 macosx: macosx-native
 
+config:
+	$(SHELL) config.sh
+
 std:	linux \
 	macosx \
 	cross-i386-pc-cygwin \
