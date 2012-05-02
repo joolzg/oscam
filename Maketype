@@ -30,6 +30,15 @@ else
 DEFINES += -DWITH_LIBCRYPTO
 endif
 
+CC_FLAGS       ?= -O2
+CC_FLAGS_DEBUG ?= -O0 -ggdb
+CC_FLAGS_WARN  ?= -Winline -Wall -Wextra
+
+ifdef DEBUG
+CC_FLAGS += $(CC_FLAGS_DEBUG)
+endif
+CC_FLAGS += $(CC_FLAGS_WARN)
+
 DEFINES += -DCS_CONFDIR="\"$(CONF_DIR)\""
 DEFINES += -DCS_SVN_VERSION="\"$(SVN_REV)\""
 
@@ -38,7 +47,7 @@ AR		= $(CROSS)$(DS_AR)
 STRIP		= $(CROSS)$(DS_ST)
 RANLIB		= $(CROSS)$(DS_RL)
 
-CFLAGS		= $(DS_OPTS) $(DEFINES) $(DS_CFLAGS)
+CFLAGS		= $(CC_FLAGS) $(DS_OPTS) $(DEFINES) $(DS_CFLAGS)
 LDFLAGS		= $(DS_OPTS) $(DS_LDFLAGS)
 ARFLAGS		= $(DS_ARFLAGS)
 LIBS		= $(DS_LIBS) $(OS_LIBS) $(LIB_CRYPTO) $(LIB_MATH) $(LIB_PTHREAD) $(LIB_SSL)
@@ -133,13 +142,15 @@ endif
 
 $(EXEFILE1):	oscam.c $(LIBFILE1) $(LIBFILE2) $(LIBFILE3) $(LIBFILE4) $(GENERAL)
 		$(CC) $(LDFLAGS) oscam.c $(LIBFILE1) $(LIBFILE2) $(LIBFILE3) $(LIBFILE4) $(LIBUSB) $(LIBPCSC) $(LIBRT) -o "$@" $(LIBS)
-ifdef DS_ST
+ifndef DEBUG
 		$(STRIP) $@
 endif
 
 $(EXEFILE2):	utils/list_smargo.c
 		$(CC) $(LDFLAGS) utils/list_smargo.c $(LIBUSB) $(LIBRT) -o "$@" $(LIBS)
+ifndef DEBUG
 		$(STRIP) $@
+endif
 
 $(LIBFILE1):	$(OBJECTS1)
 		-$(RANLIB) $@
