@@ -94,8 +94,7 @@ i386-pc-linux-libusb:
 i386-pc-linux-pcsc:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
-		OS_LIBS="-lcrypto -lm" \
-		OS_PTLI="-lpcsclite" \
+		OS_LIBS="-lcrypto -lm -lpcsclite" \
 		DS_OPTS="-O2 -DOS_LINUX -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -DHAVE_PCSC=1 -I/usr/include/PCSC -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
 
 ######################################################################
@@ -107,8 +106,7 @@ i386-pc-linux-pcsc-libusb:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
         	LIBUSB="/usr/local/lib/libusb-1.0.a" \
-		OS_LIBS="-lcrypto -lm -lrt" \
-		OS_PTLI="-lpcsclite" \
+		OS_LIBS="-lcrypto -lm -lrt -lpcsclite" \
 		DS_OPTS="-O2 -DOS_LINUX -DLIBUSB -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -DHAVE_PCSC=1 -I/usr/include/PCSC -Winline -Wall -Wextra -D'CS_SVN_VERSION="\"$(SVN_REV)\""' -I/usr/local/include" \
 
 ######################################################################
