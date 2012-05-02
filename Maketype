@@ -63,6 +63,14 @@ export		CC AR STRIP RANLIB CFLAGS LDFLAGS ARFLAGS
 
 GENERAL		= Makefile Maketype globals.h oscam-config.h
 
+Q =
+SAY = @true
+ifndef V
+Q = @
+SAY = @echo
+endif
+export Q SAY
+
 ifeq ($(wildcard csgbox), csgbox)
  VERX	= -gbx-$(subst ",,$(filter-out \#define GBXVERSION,$(shell grep GBXVERSION csgbox/gbox.h)))
 endif
@@ -139,34 +147,43 @@ prepare:
 		@[ -d "$(LIBDIR)" ] || mkdir "$(LIBDIR)"
 
 ifeq ($(wildcard csgbox), csgbox)
-		@-echo "#define CS_WITH_GBOX 1" >> oscam-ostype.h
-		$(MAKE) -C csgbox
+	@-echo "#define CS_WITH_GBOX 1" >> oscam-ostype.h
+	$(SAY) "MAKE	csgbox"
+	$(Q)$(MAKE) -s -C csgbox
 endif
-
-		$(MAKE) -C cscrypt
-		$(MAKE) -C csctapi
-		$(MAKE) -C algo
+	$(SAY) "MAKE	algo"
+	$(Q)$(MAKE) -s -C algo
+	$(SAY) "MAKE	cscrypt"
+	$(Q)$(MAKE) -s -C cscrypt
+	$(SAY) "MAKE	csctapi"
+	$(Q)$(MAKE) -s -C csctapi
 
 $(EXEFILE1):	oscam.c $(LIBFILE1) $(LIBFILE2) $(LIBFILE3) $(LIBFILE4) $(GENERAL)
-		$(CC) $(LDFLAGS) oscam.c $(LIBS) $(LIBFILE1) $(LIBFILE2) $(LIBFILE3) $(LIBFILE4) -o "$@"
+	$(SAY) "LD	$@"
+	$(Q)$(CC) $(LDFLAGS) oscam.c $(LIBS) $(LIBFILE1) $(LIBFILE2) $(LIBFILE3) $(LIBFILE4) -o $@
 ifndef DEBUG
-		$(STRIP) $@
+	$(SAY) "STRIP	$@"
+	$(Q)$(STRIP) $@
 endif
 
 $(EXEFILE2):	utils/list_smargo.c
-		$(CC) $(LDFLAGS) utils/list_smargo.c $(LIBS) -o "$@"
+	$(SAY) "LD	$@"
+	$(Q)$(CC) $(LDFLAGS) utils/list_smargo.c $(LIBS) -o $@
 ifndef DEBUG
-		$(STRIP) $@
+	$(SAY) "STRIP	$@"
+	$(Q)$(STRIP) $@
 endif
 
 $(LIBFILE1):	$(OBJECTS1)
-		-$(RANLIB) $@
+	$(SAY) "RANLIB	$@"
+	-$(Q)$(RANLIB) $@
 
 $(OBJECTS1):	$(GENERAL)
 
 .c.a:
-		$(CC) $(CFLAGS) -Icsctapi $<
-		$(AR) $(ARFLAGS) $@ $*.o
-		-@rm -f $*.o
+	$(SAY) "CC	$<"
+	$(Q)$(CC) $(CFLAGS) -Icsctapi $<
+	$(Q)$(AR) $(ARFLAGS) $@ $*.o
+	-@rm -f $*.o
 
 .SUFFIXES:	.o .c .a
