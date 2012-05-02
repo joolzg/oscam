@@ -82,9 +82,9 @@ i386-pc-linux-debug:
 i386-pc-linux-libusb:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
-        	LIBUSB="/usr/local/lib/libusb-1.0.a" \
+		USE_LIBUSB=1 \
 		OS_LIBS="-lrt" \
-		DS_OPTS="-DOS_LINUX -DLIBUSB  -I/usr/local/include" \
+		DS_OPTS="-DOS_LINUX"
 
 ######################################################################
 #
@@ -105,9 +105,9 @@ i386-pc-linux-pcsc:
 i386-pc-linux-pcsc-libusb:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
-        	LIBUSB="/usr/local/lib/libusb-1.0.a" \
+		USE_LIBUSB=1 \
 		OS_LIBS="-lrt -lpcsclite" \
-		DS_OPTS="-DOS_LINUX -DLIBUSB -DHAVE_PCSC=1 -I/usr/include/PCSC -I/usr/local/include" \
+		DS_OPTS="-DOS_LINUX -DHAVE_PCSC=1 -I/usr/include/PCSC" \
 
 ######################################################################
 #
@@ -128,8 +128,8 @@ macosx-native:
 macosx-libusb:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		LIBUSB="/usr/local/lib/libusb-1.0.a" \
-		DS_OPTS="-DOS_MACOSX -DNEED_DAEMON -DHAVE_PTHREAD_H -DHAVE_PCSC=1 -DLIBUSB -m32 -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -finline-functions -fomit-frame-pointer -I/usr/local/include" \
+		USE_LIBUSB=1 \
+		DS_OPTS="-DOS_MACOSX -DNEED_DAEMON -DHAVE_PTHREAD_H -DHAVE_PCSC=1 -m32 -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -finline-functions -fomit-frame-pointer" \
 		DS_LDFLAGS="-framework PCSC -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -Wl,-framework -Wl,IOKit -Wl,-framework -Wl,CoreFoundation -Wl,-prebind -no-undefined" \
 
 
@@ -254,9 +254,9 @@ i386-pc-cygwin-pcsc:
 i386-pc-cygwin-libusb:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		LIBUSB="/usr/lib/libusb-1.0.a" \
+		USE_LIBUSB=1 \
 		OS_LIBS="-lSetupAPI -lOle32 -lshell32" \
-		DS_OPTS="-DOS_CYGWIN32 -D_WIN32 -DLIBUSB -I /tmp/include -I ./cygwin" \
+		DS_OPTS="-DOS_CYGWIN32 -D_WIN32 -I /tmp/include -I ./cygwin" \
 
 ######################################################################
 #
