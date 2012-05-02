@@ -432,8 +432,7 @@ alpha-dec-osf5.1:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
 		NO_LIBCRYPTO=1 \
-		DS_OPTS="-DOS_OSF -DOS_OSF5" \
-		XDS_CFLAGS="-I/usr/include -c" \
+		DS_OPTS="-DOS_OSF -DOS_OSF5"
 
 ######################################################################
 #
