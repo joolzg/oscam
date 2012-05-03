@@ -94,8 +94,8 @@ i386-pc-linux-libusb:
 i386-pc-linux-pcsc:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
-		OS_LIBS="-lpcsclite" \
-		DS_OPTS="-DOS_LINUX -DHAVE_PCSC=1 -I/usr/include/PCSC " \
+		USE_PCSC=1 \
+		DS_OPTS="-DOS_LINUX"
 
 ######################################################################
 #
@@ -106,8 +106,9 @@ i386-pc-linux-pcsc-libusb:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
 		USE_LIBUSB=1 \
-		OS_LIBS="-lrt -lpcsclite" \
-		DS_OPTS="-DOS_LINUX -DHAVE_PCSC=1 -I/usr/include/PCSC" \
+		USE_PCSC=1 \
+		OS_LIBS="-lrt" \
+		DS_OPTS="-DOS_LINUX" \
 
 ######################################################################
 #
@@ -117,7 +118,10 @@ i386-pc-linux-pcsc-libusb:
 macosx-native:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
-		DS_OPTS="-DOS_MACOSX -DNEED_DAEMON -DHAVE_PTHREAD_H -DHAVE_PCSC=1 -m32 -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -finline-functions -fomit-frame-pointer" \
+		USE_PCSC=1 \
+		PCSC= \
+		PCSC_DEFS="-DHAVE_PCSC=1" \
+		DS_OPTS="-DOS_MACOSX -DNEED_DAEMON -DHAVE_PTHREAD_H -m32 -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -finline-functions -fomit-frame-pointer" \
 		DS_LDFLAGS="-framework PCSC -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk" \
 
 ######################################################################
@@ -129,7 +133,10 @@ macosx-libusb:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
 		USE_LIBUSB=1 \
-		DS_OPTS="-DOS_MACOSX -DNEED_DAEMON -DHAVE_PTHREAD_H -DHAVE_PCSC=1 -m32 -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -finline-functions -fomit-frame-pointer" \
+		USE_PCSC=1 \
+		PCSC= \
+		PCSC_DEFS="-DHAVE_PCSC=1" \
+		DS_OPTS="-DOS_MACOSX -DNEED_DAEMON -DHAVE_PTHREAD_H -m32 -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -finline-functions -fomit-frame-pointer" \
 		DS_LDFLAGS="-framework PCSC -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk -Wl,-framework -Wl,IOKit -Wl,-framework -Wl,CoreFoundation -Wl,-prebind -no-undefined" \
 
 
@@ -242,7 +249,10 @@ i386-pc-cygwin-pcsc:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \
 		OS_LIBS="-lwinscard" \
-		DS_OPTS="-DOS_CYGWIN32 -D_WIN32 -DHAVE_PCSC=1 -I /tmp/include -I ./cygwin -I/usr/include/w32api" \
+		USE_PCSC=1 \
+		PCSC_LIB= \
+		PCSC_DEFS="-DHAVE_PCSC=1" \
+		DS_OPTS="-DOS_CYGWIN32 -D_WIN32 -I /tmp/include -I ./cygwin -I/usr/include/w32api" \
 		DS_LDFLAGS="-L/cygdrive/c/WINDOWS/system32/" \
 
 ######################################################################
