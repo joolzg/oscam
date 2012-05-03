@@ -36,12 +36,13 @@ endif
 CC_FLAGS       ?= -O2
 CC_FLAGS_DEBUG ?= -O0 -ggdb
 CC_FLAGS_WARN  ?= -Winline -Wall -Wextra
+CC_FLAGS_EXTRA ?= -fno-strict-aliasing
 
 ifdef DEBUG
 TYPE +=-debug
 CC_FLAGS += $(CC_FLAGS_DEBUG)
 endif
-CC_FLAGS += $(CC_FLAGS_WARN)
+CC_FLAGS += $(CC_FLAGS_WARN) $(CC_FLAGS_EXTRA)
 
 LIBUSB     ?= /usr/local/lib/libusb-1.0.a
 LIBUSB_DEFS?= -DLIBUSB -I/usr/local/include
