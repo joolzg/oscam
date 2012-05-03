@@ -14,7 +14,7 @@ DS_AR      ?= ar
 DS_LD      ?= ld
 DS_RL      ?= ranlib
 DS_ST      ?= strip
-DS_ARFLAGS ?= -rsl
+DS_ARFLAGS ?= -crsl
 DS_CFLAGS  ?= -c
 
 CROSS      ?= $(DS_CROSS)
