@@ -601,7 +601,7 @@ cross-arm-nslu2-linux:
 #
 ######################################################################
 cross-armBE-unknown-linux:
-	-$(MAKE) --no-print-directory \
+	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP="$(subst cross-,,$@)" \
 		OS_LIBS="-lm" \
 		OS_CULI="-lncurses" \
@@ -613,13 +613,15 @@ cross-armBE-unknown-linux:
 		DS_RL="arm-linux-ranlib" \
 		DS_ST="arm-linux-strip"
 
+cross-armBE-unkown-linux: cross-armBE-unknown-linux
+
 ######################################################################
 #
 #	ARM crosscompiler (little-endian)
 #
 ######################################################################
 cross-armLE-unknown-linux:
-	-$(MAKE) --no-print-directory \
+	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP="$(subst cross-,,$@)" \
 		OS_LIBS="-lm" \
 		OS_CULI="-lncurses" \
@@ -630,3 +632,5 @@ cross-armLE-unknown-linux:
 		DS_LD="arm-linux-ld -EL" \
 		DS_RL="arm-linux-ranlib" \
 		DS_ST="arm-linux-strip"
+
+cross-armLE-unkown-linux: cross-armLE-unknown-linux
