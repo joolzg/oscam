@@ -63,13 +63,13 @@ nptar:	clean
 #
 ######################################################################
 i386-pc-linux:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$(subst i386,$(shell uname --machine),$@) \
 		DS_OPTS="-DOS_LINUX" \
 
 i386-pc-linux-debug:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$(subst i386,$(shell uname --machine),$@) \
 		OS_LIBS="-lrt" \
 		DEBUG=1 \
 		DS_OPTS="-DOS_LINUX" \
@@ -80,8 +80,8 @@ i386-pc-linux-debug:
 #
 ######################################################################
 i386-pc-linux-libusb:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$(subst i386,$(shell uname --machine),$@) \
 		USE_LIBUSB=1 \
 		OS_LIBS="-lrt" \
 		DS_OPTS="-DOS_LINUX"
@@ -92,8 +92,8 @@ i386-pc-linux-libusb:
 #
 ######################################################################
 i386-pc-linux-pcsc:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$(subst i386,$(shell uname --machine),$@) \
 		USE_PCSC=1 \
 		DS_OPTS="-DOS_LINUX"
 
@@ -103,8 +103,8 @@ i386-pc-linux-pcsc:
 #
 ######################################################################
 i386-pc-linux-pcsc-libusb:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$(subst i386,$(shell uname --machine),$@) \
 		USE_LIBUSB=1 \
 		USE_PCSC=1 \
 		OS_LIBS="-lrt" \
@@ -116,8 +116,8 @@ i386-pc-linux-pcsc-libusb:
 #
 ######################################################################
 macosx-native:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		USE_PCSC=1 \
 		PCSC= \
 		PCSC_DEFS="-DHAVE_PCSC=1" \
@@ -130,8 +130,8 @@ macosx-native:
 #
 ######################################################################
 macosx-libusb:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		USE_LIBUSB=1 \
 		USE_PCSC=1 \
 		PCSC= \
@@ -146,8 +146,8 @@ macosx-libusb:
 #
 ######################################################################
 i386-pc-freebsd:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_FREEBSD -DBSD_COMP -static-libgcc" \
 
@@ -157,8 +157,8 @@ i386-pc-freebsd:
 #
 ######################################################################
 cross-i386-pc-freebsd:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_FREEBSD -DBSD_COMP -static-libgcc" \
 		DS_CROSS=i386-pc-freebsd5.4-
@@ -169,16 +169,16 @@ cross-i386-pc-freebsd:
 #
 ######################################################################
 cross-powerpc-tuxbox-linux:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		OS_LIBS="-ldl" \
 		DS_CONFDIR=/var/tuxbox/config \
 		DS_OPTS="-DOS_LINUX -DTUXBOX -DPPC" \
 		DS_CROSS=powerpc-tuxbox-linux-gnu-
 
 cross-powerpc-tuxbox-linux-uclibc:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		NO_LIBCRYPTO=1 \
 		DS_CONFDIR=/var/tuxbox/config \
 		DS_OPTS="-DOS_LINUX -DTUXBOX -DPPC" \
@@ -190,8 +190,8 @@ cross-powerpc-tuxbox-linux-uclibc:
 #
 ######################################################################
 cross-powerpc-405-linux:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		OS_LIBS="-ldl" \
 		DS_CONFDIR=/var/tuxbox/config \
 		DS_OPTS="-DOS_LINUX -DTRIPLEDRAGON -DSTB04SCI" \
@@ -203,15 +203,15 @@ cross-powerpc-405-linux:
 #
 ######################################################################
 cross-sh4-linux:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		DS_CONFDIR=/var/tuxbox/config \
 		DS_OPTS="-DOS_LINUX -DSH4 -DTUXBOX" \
 		DS_CROSS=sh4-linux-
 
 cross-sh4-linux-stapi:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		OS_LIBS="-L./stapi -loscam_stapi" \
 		DS_CONFDIR=/var/tuxbox/config \
 		DS_OPTS="-DOS_LINUX -DSH4 -DWITH_STAPI -DTUXBOX -DSCI_DEV" \
@@ -223,8 +223,8 @@ cross-sh4-linux-stapi:
 #
 ######################################################################
 cross-i386-pc-cygwin:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		DS_OPTS="-DOS_CYGWIN32 -static" \
 		DS_CROSS=i686-pc-cygwin-
 
@@ -234,8 +234,8 @@ cross-i386-pc-cygwin:
 #
 ######################################################################
 i386-pc-cygwin:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		DS_CONFDIR=. \
 		DS_OPTS="-DOS_CYGWIN32 -I /tmp/include" \
 
@@ -246,8 +246,8 @@ i386-pc-cygwin:
 #
 ######################################################################
 i386-pc-cygwin-pcsc:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		OS_LIBS="-lwinscard" \
 		USE_PCSC=1 \
 		PCSC_LIB= \
@@ -262,8 +262,8 @@ i386-pc-cygwin-pcsc:
 # 	requires Visual Studio / Visual C++ for the winscard includes
 ######################################################################
 i386-pc-cygwin-libusb:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		USE_LIBUSB=1 \
 		OS_LIBS="-lSetupAPI -lOle32 -lshell32" \
 		DS_OPTS="-DOS_CYGWIN32 -D_WIN32 -I /tmp/include -I ./cygwin" \
@@ -274,8 +274,8 @@ i386-pc-cygwin-libusb:
 #
 ######################################################################
 cross-sparc-sun-solaris2.7:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_SOLARIS -DOS_SOLARIS7 -DBSD_COMP -static-libgcc" \
 		DS_LDFLAGS="-lsocket" \
@@ -287,8 +287,8 @@ cross-sparc-sun-solaris2.7:
 #
 ######################################################################
 opensolaris:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		OS_LIBS="-lnsl" \
 		DS_OPTS="-DOS_SOLARIS -DOS_SOLARIS7 -DBSD_COMP -static-libgcc" \
 		DS_LDFLAGS="-lsocket" \
@@ -299,8 +299,8 @@ opensolaris:
 #
 ######################################################################
 cross-rs6000-ibm-aix4.2:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		LIB_PTHREAD="-lpthreads" \
 		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_AIX -DOS_AIX42 -static-libgcc" \
@@ -312,8 +312,8 @@ cross-rs6000-ibm-aix4.2:
 #
 ######################################################################
 cross-mips-sgi-irix6.5:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_IRIX -DOS_IRIX65 -static-libgcc" \
 		DS_CROSS=mips-sgi-irix6.5-
@@ -325,8 +325,8 @@ cross-mips-sgi-irix6.5:
 ######################################################################
 cross-mipsel-router-linux-uclibc927:
 	@-mipsel-linux-uclibc-setlib 0.9.27
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_LINUX -DMIPSEL -DUCLIBC -DUSE_GPIO -static-libgcc" \
 		DS_CROSS=mipsel-linux-uclibc-
@@ -338,8 +338,8 @@ cross-mipsel-router-linux-uclibc927:
 ######################################################################
 cross-mipsel-router-linux-uclibc928:
 	@-mipsel-linux-uclibc-setlib 0.9.28
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		DS_OPTS="-DOS_LINUX -DMIPSEL -DUCLIBC -DUSE_GPIO -static-libgcc" \
 		DS_CROSS=mipsel-linux-uclibc-
 
@@ -350,8 +350,8 @@ cross-mipsel-router-linux-uclibc928:
 ######################################################################
 cross-mipsel-router-linux-uclibc929:
 	@-mipsel-linux-uclibc-setlib 0.9.29
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		DS_OPTS="-DOS_LINUX -DMIPSEL -DUCLIBC -DUSE_GPIO -static-libgcc" \
 		DS_CROSS=mipsel-linux-uclibc-
 
@@ -362,8 +362,8 @@ cross-mipsel-router-linux-uclibc929:
 ######################################################################
 cross-mipsel-router-linux-uclibc929-static:
 	@-mipsel-linux-uclibc-setlib 0.9.29
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		DS_OPTS="-DOS_LINUX -DMIPSEL -DUCLIBC -DUSE_GPIO -static-libgcc" \
 		DS_CROSS=mipsel-linux-uclibc-
 
@@ -374,8 +374,8 @@ cross-mipsel-router-linux-uclibc929-static:
 ######################################################################
 cross-mips-router-linux-uclibc930:
 	@-mips-linux-uclibc-setlib 0.9.30
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		DS_OPTS="-DOS_LINUX -DMIPS -DUCLIBC -DUSE_GPIO -static-libgcc" \
 		DS_CROSS=mips-linux-uclibc-
 
@@ -386,8 +386,8 @@ cross-mips-router-linux-uclibc930:
 ######################################################################
 cross-mips-router-linux-uclibc931:
 	@-mips-linux-uclibc-setlib 0.9.31
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		DS_OPTS="-DOS_LINUX -DMIPS -DUCLIBC -DUSE_GPIO -static-libgcc" \
 		DS_CROSS=mips-linux-uclibc-
 
@@ -397,8 +397,8 @@ cross-mips-router-linux-uclibc931:
 #
 ######################################################################
 cross-mipsel-fonera2:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		OS_LIBS="-Lopenssl-lib" \
 		DS_OPTS="-Iopenssl-include -DOS_LINUX -DMIPSEL -DUCLIBC -static-libgcc" \
 		DS_CROSS=mips-linux-
@@ -409,15 +409,15 @@ cross-mipsel-fonera2:
 #
 ######################################################################
 cross-mipsel-tuxbox-linux-glibc:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		DS_CONFDIR=/var/tuxbox/config \
 		DS_OPTS="-DOS_LINUX -DTUXBOX -DMIPSEL -static-libgcc" \
 		DS_CROSS=mipsel-linux-glibc-
 
 cross-mipsel-tuxbox-linux:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		DS_CONFDIR=/var/tuxbox/config \
 		DS_OPTS="-DOS_LINUX -DTUXBOX -DMIPSEL -static-libgcc" \
 		DS_CROSS=mipsel-linux-
@@ -428,8 +428,8 @@ cross-mipsel-tuxbox-linux:
 #
 ######################################################################
 hppa1.1-hp-hpux10.20:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_HPUX -DOS_HPUX10 -D_XOPEN_SOURCE_EXTENDED" \
 
@@ -439,8 +439,8 @@ hppa1.1-hp-hpux10.20:
 #
 ######################################################################
 alpha-dec-osf5.1:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst cross-,,$@) \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_OSF -DOS_OSF5"
 
@@ -450,8 +450,8 @@ alpha-dec-osf5.1:
 #
 ######################################################################
 cross-arm-nslu2-linux:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP="$(subst cross-,,$@)" \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_LINUX -DARM -DALIGNMENT" \
 		DS_CROSS=armv5b-softfloat-linux-
@@ -462,8 +462,8 @@ cross-arm-nslu2-linux:
 #
 ######################################################################
 cross-armBE-unknown-linux:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP="$(subst cross-,,$@)" \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_LINUX -DARM -DALIGNMENT" \
 		DS_CROSS=arm-linux- \
@@ -478,8 +478,8 @@ cross-armBE-unkown-linux: cross-armBE-unknown-linux
 #
 ######################################################################
 cross-armLE-unknown-linux:
-	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP="$(subst cross-,,$@)" \
+	@-$(MAKE) --no-print-directory -f Maketype \
+		DS_TYPE=$@ \
 		NO_LIBCRYPTO=1 \
 		DS_OPTS="-DOS_LINUX -DARM -DALIGNMENT" \
 		DS_CROSS=arm-linux- \

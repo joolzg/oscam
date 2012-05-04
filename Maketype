@@ -19,6 +19,9 @@ DS_CFLAGS  ?= -c
 
 CROSS      ?= $(DS_CROSS)
 CONF_DIR   ?= $(DS_CONFDIR)
+TYPE       ?= $(DS_TYPE)
+TYPE       := $(subst cross-,,$(TYPE))
+TYPE       := $(subst -debug,,$(TYPE))
 
 LIB_PTHREAD ?= -lpthread
 LIB_MATH    ?= -lm
@@ -35,6 +38,7 @@ CC_FLAGS_DEBUG ?= -O0 -ggdb
 CC_FLAGS_WARN  ?= -Winline -Wall -Wextra
 
 ifdef DEBUG
+TYPE +=-debug
 CC_FLAGS += $(CC_FLAGS_DEBUG)
 endif
 CC_FLAGS += $(CC_FLAGS_WARN)
@@ -66,7 +70,7 @@ LDFLAGS		= $(DS_OPTS) $(DS_LDFLAGS)
 ARFLAGS		= $(DS_ARFLAGS)
 LIBS		= $(OS_LIBS) $(LIB_USB) $(LIB_PCSC) $(LIB_CRYPTO) $(LIB_MATH) $(LIB_PTHREAD) $(LIB_SSL)
 
-export		CC AR STRIP RANLIB CFLAGS LDFLAGS ARFLAGS
+export		CC AR STRIP RANLIB CFLAGS LDFLAGS ARFLAGS TYPE
 
 GENERAL		= Makefile Maketype globals.h oscam-config.h
 
@@ -74,14 +78,14 @@ ifeq ($(wildcard csgbox), csgbox)
  VERX	= -gbx-$(subst ",,$(filter-out \#define GBXVERSION,$(shell grep GBXVERSION csgbox/gbox.h)))
 endif
 
-EXEFILE1	= Distribution/oscam-$(VER)$(VERX)-$(subst cygwin,cygwin.exe,$(TYP))
-EXEFILE2	= Distribution/list_smargo-$(VER)$(VERX)-$(subst cygwin,cygwin.exe,$(TYP))
+EXEFILE1	= Distribution/oscam-$(VER)$(VERX)-$(subst cygwin,cygwin.exe,$(TYPE))
+EXEFILE2	= Distribution/list_smargo-$(VER)$(VERX)-$(subst cygwin,cygwin.exe,$(TYPE))
 
 LIBDIR		= lib
-LIBFILE1	= $(LIBDIR)/libcs-$(TYP).a
-LIBFILE2	= $(LIBDIR)/libcscrypt-$(TYP).a
-LIBFILE3	= $(LIBDIR)/libcsctapi-$(TYP).a
-LIBFILE4	= $(LIBDIR)/libminilzo-$(TYP).a
+LIBFILE1	= $(LIBDIR)/libcs-$(TYPE).a
+LIBFILE2	= $(LIBDIR)/libcscrypt-$(TYPE).a
+LIBFILE3	= $(LIBDIR)/libcsctapi-$(TYPE).a
+LIBFILE4	= $(LIBDIR)/libminilzo-$(TYPE).a
 
 OBJECTS1	= $(LIBFILE1)(oscam-simples.o) \
 		  $(LIBFILE1)(oscam-config.o) \
