@@ -237,6 +237,22 @@ cross-i386-pc-freebsd:
 #	Tuxbox crosscompiler
 #
 ######################################################################
+cross-powerpc-tuxbox-linux-gf:
+	@-$(MAKE) --no-print-directory \
+		-f Maketype TYP=$(subst cross-,,$@) \
+		OS_LIBS="-lcrypto -ldl -lm" \
+		OS_CULI="-lncurses" \
+		OS_PTLI="-lpthread" \
+		DS_OPTS="-O2 -DOS_LINUX -DTUXBOX -DPPC -DWITH_LIBCRYPTO -DCS_CONFDIR='\"/var/tuxbox/config\"' -D'CS_SVN_VERSION="\"$(SVN_REV)\""'" \
+		DS_CFLAGS="-c" \
+		DS_LDFLAGS="" \
+		DS_ARFLAGS="-rvsl" \
+		DS_CC=/home/gf/dreambox/root/cdk/bin/powerpc-tuxbox-linux-gnu-gcc \
+		DS_AR=/home/gf/dreambox/root/cdk/bin/powerpc-tuxbox-linux-gnu-ar \
+		DS_LD=/home/gf/dreambox/root/cdk/bin/powerpc-tuxbox-linux-gnu-ld \
+		DS_RL=/home/gf/dreambox/root/cdk/bin/powerpc-tuxbox-linux-gnu-ranlib \
+		DS_ST=/home/gf/dreambox/root/cdk/bin/powerpc-tuxbox-linux-gnu-strip
+
 cross-powerpc-tuxbox-linux:
 	@-$(MAKE) --no-print-directory \
 		-f Maketype TYP=$(subst cross-,,$@) \

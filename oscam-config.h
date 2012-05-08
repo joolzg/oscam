@@ -6,7 +6,7 @@
 //
 
 #ifndef WEBIF
-#define WEBIF
+//#define WEBIF
 #endif
 
 #ifndef WITH_SSL
@@ -28,19 +28,19 @@
 
 
 #ifndef IRDETO_GUESSING
-#define IRDETO_GUESSING
+//#define IRDETO_GUESSING
 #endif
 
 #ifndef CS_ANTICASC
-#define CS_ANTICASC
+//#define CS_ANTICASC
 #endif
 
 #ifndef WITH_DEBUG
-#define WITH_DEBUG
+//#define WITH_DEBUG
 #endif
 
 #ifndef WITH_LB
-#define WITH_LB
+//#define WITH_LB
 #endif
 
 #ifndef LCDSUPPORT
@@ -56,7 +56,7 @@
 //
 
 #ifndef MODULE_MONITOR
-#define MODULE_MONITOR
+//#define MODULE_MONITOR
 #endif
 
 #ifndef MODULE_CAMD33
@@ -64,7 +64,7 @@
 #endif
 
 #ifndef MODULE_CAMD35
-#define MODULE_CAMD35
+//#define MODULE_CAMD35
 #endif
 
 #ifndef MODULE_CAMD35_TCP
@@ -76,7 +76,7 @@
 #endif
 
 #ifndef MODULE_CCCAM
-#define MODULE_CCCAM
+//#define MODULE_CCCAM
 #endif
 
 #ifdef MODULE_CCCAM
@@ -87,23 +87,23 @@
 
 
 #ifndef MODULE_GBOX
-#define MODULE_GBOX
+//#define MODULE_GBOX
 #endif
 
 #ifndef MODULE_RADEGAST
-#define MODULE_RADEGAST
+//#define MODULE_RADEGAST
 #endif
 
 #ifndef MODULE_SERIAL
-#define MODULE_SERIAL
+//#define MODULE_SERIAL
 #endif
 
 #ifndef MODULE_CONSTCW
-#define MODULE_CONSTCW
+//#define MODULE_CONSTCW
 #endif
 
 #ifndef MODULE_PANDORA
-#define MODULE_PANDORA
+//#define MODULE_PANDORA
 #endif
 
 //
@@ -116,7 +116,7 @@
 
 #ifdef WITH_CARDREADER
 #ifndef READER_NAGRA
-#define READER_NAGRA
+//#define READER_NAGRA
 #endif
 
 #ifndef READER_IRDETO
@@ -132,7 +132,7 @@
 #endif
 
 #ifndef READER_SECA
-#define READER_SECA
+//#define READER_SECA
 #endif
 
 #ifndef READER_VIACCESS
@@ -140,15 +140,15 @@
 #endif
 
 #ifndef READER_VIDEOGUARD
-#define READER_VIDEOGUARD
+//#define READER_VIDEOGUARD
 #endif
 
 #ifndef READER_DRE
-#define READER_DRE
+//#define READER_DRE
 #endif
 
 #ifndef READER_TONGFANG
-#define READER_TONGFANG
+//#define READER_TONGFANG
 #endif
 
 #ifndef READER_BULCRYPT
@@ -157,7 +157,7 @@
 #endif
 
 #ifndef CS_CACHEEX
-#define CS_CACHEEX
+//#define CS_CACHEEX
 #endif
 
 
