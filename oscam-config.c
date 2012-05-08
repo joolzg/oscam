@@ -102,6 +102,61 @@ static uint32_t strToUIntVal(char *value, uint32_t defaultvalue){
 	return (errno == 0) ? i : defaultvalue;
 }
 
+enum opt_types {
+	OPT_UNKNOWN = 0,
+	OPT_INT     = 1 << 1,
+	OPT_UINT    = 1 << 2,
+};
+
+struct config_list {
+	enum opt_types	opt_type;
+	char			*config_name;
+	void			*cfg;
+	long			default_value;
+};
+
+#define DEF_OPT_INT(__name, __var, __default) \
+	{ \
+		.opt_type		= OPT_INT, \
+		.config_name	= __name, \
+		.cfg			= __var, \
+		.default_value	= __default \
+	}
+
+#define DEF_OPT_UINT(__name, __var, __default) \
+	{ \
+		.opt_type		= OPT_UINT, \
+		.config_name	= __name, \
+		.cfg			= __var, \
+		.default_value	= __default \
+	}
+
+static int parse_config_list(const struct config_list *clist, const char *token, char *value) {
+	const struct config_list *c;
+	for (c = clist; c->opt_type != OPT_UNKNOWN; c++) {
+		if (strcasecmp(token, c->config_name) != 0)
+			continue;
+		switch (c->opt_type) {
+		case OPT_INT: {
+			*(int32_t *)c->cfg = strToIntVal(value, c->default_value);
+			return 1;
+		}
+		case OPT_UINT: {
+			*(uint32_t *)c->cfg = strToIntVal(value, c->default_value);
+			return 1;
+		}
+		case OPT_UNKNOWN: {
+			fprintf(stderr, "Unknown config type (%s = %s).", token, value);
+			break;
+		}
+		}
+	}
+	return 0;
+}
+
+
+
+
  /* Replacement of fprintf which adds necessary whitespace to fill up the varname to a fixed width.
    If varname is longer than CONFVARWIDTH, no whitespace is added*/
 static void fprintf_conf(FILE *f, const char *varname, const char *fmtstring, ...){
@@ -423,29 +478,65 @@ static void chk_srvip(char *value, in_addr_t *ip)
 }
 #endif
 
+static const struct config_list global_opts[] = {
+#if defined(QBOXHD) || defined(__ARM__)
+	DEF_OPT_INT(	"enableled"					, &cfg.enableled,				0 ),
+#endif
+	DEF_OPT_UINT(	"disableuserfile"			, &cfg.disableuserfile,			1 ),
+	DEF_OPT_INT(	"disablemail"				, &cfg.disablemail,				0 ),
+	DEF_OPT_INT(	"usrfileflag"				, &cfg.usrfileflag,				0 ),
+	DEF_OPT_UINT(	"clientmaxidle"				, &cfg.cmaxidle,				CS_CLIENT_MAXIDLE ),
+	DEF_OPT_UINT(	"cachedelay"				, &cfg.delay,					CS_DELAY ),
+	DEF_OPT_INT(	"bindwait"					, &cfg.bindwait,				CS_BIND_TIMEOUT ),
+	DEF_OPT_INT(	"netprio"					, &cfg.netprio,					0 ),
+	DEF_OPT_INT(	"sleep"						, &cfg.tosleep,					0 ),
+	DEF_OPT_INT(	"unlockparental"			, &cfg.ulparent,				0 ),
+	DEF_OPT_INT(	"waitforcards"				, &cfg.waitforcards,			1 ),
+	DEF_OPT_INT(	"waitforcards_extra_delay"	, &cfg.waitforcards_extra_delay,	0 ),
+	DEF_OPT_INT(	"preferlocalcards"			, &cfg.preferlocalcards,		0 ),
+	DEF_OPT_INT(	"saveinithistory"			, &cfg.saveinithistory,			0 ),
+	DEF_OPT_INT(	"readerrestartseconds"		, &cfg.reader_restart_seconds,	5 ),
+	DEF_OPT_INT(	"dropdups"					, &cfg.dropdups,				0 ),
+#ifdef CS_CACHEEX
+	DEF_OPT_INT(	"cacheexwaittime"			, &cfg.cacheex_wait_time,		DEFAULT_CACHEEX_WAIT_TIME ),
+	DEF_OPT_INT(	"cacheexenablestats"		, &cfg.cacheex_enable_stats,	0 ),
+#endif
+#ifdef WITH_LB
+	DEF_OPT_INT(	"readerautoloadbalance"		, &cfg.lb_mode,					DEFAULT_LB_MODE ),
+	DEF_OPT_INT(	"lb_mode"					, &cfg.lb_mode,					DEFAULT_LB_MODE ),
+	DEF_OPT_INT(	"lb_nfb_readers"			, &cfg.lb_nfb_readers,			DEFAULT_NFB ),
+	DEF_OPT_INT(	"lb_min_ecmcount"			, &cfg.lb_min_ecmcount,			DEFAULT_MIN_ECM_COUNT ),
+	DEF_OPT_INT(	"lb_max_ecmcount"			, &cfg.lb_max_ecmcount,			DEFAULT_MAX_ECM_COUNT ),
+	DEF_OPT_INT(	"lb_reopen_seconds"			, &cfg.lb_reopen_seconds,		DEFAULT_REOPEN_SECONDS ),
+	DEF_OPT_INT(	"lb_retrylimit"				, &cfg.lb_retrylimit,			DEFAULT_RETRYLIMIT ),
+	DEF_OPT_INT(	"lb_stat_cleanup"			, &cfg.lb_stat_cleanup,			DEFAULT_LB_STAT_CLEANUP ),
+	DEF_OPT_INT(	"lb_reopen_mode"			, &cfg.lb_reopen_mode,			DEFAULT_LB_REOPEN_MODE ),
+	DEF_OPT_INT(	"lb_max_readers"			, &cfg.lb_max_readers,			0 ),
+	DEF_OPT_INT(	"lb_auto_betatunnel"		, &cfg.lb_auto_betatunnel,		DEFAULT_LB_AUTO_BETATUNNEL ),
+	DEF_OPT_INT(	"lb_auto_betatunnel_prefer_beta", &cfg.lb_auto_betatunnel_prefer_beta, DEFAULT_LB_AUTO_BETATUNNEL_PREFER_BETA ),
+//	DEF_OPT_INT(	""					, &cfg.,				0 ),
+#endif
+//	DEF_OPT_INT(	""					, &cfg.,				1 ),
+	DEF_OPT_INT(	"resolvegethostbyname"		, &cfg.resolve_gethostbyname,	0 ),
+	DEF_OPT_INT(	"failbantime"				, &cfg.failbantime,				0 ),
+	DEF_OPT_INT(	"failbancount"				, &cfg.failbancount,			0 ),
+	DEF_OPT_INT(	"suppresscmd08"				, &cfg.c35_suppresscmd08,		0 ),
+	DEF_OPT_INT(	"double_check"				, &cfg.double_check,			0 ),
+	DEF_OPT_INT(	"max_cache_time"			, &cfg.max_cache_time,			0 ),
+	DEF_OPT_INT(	"max_cache_count"			, &cfg.max_cache_count,			0 ),
+//	DEF_OPT_INT(	""					, &cfg.,				0 ),
+	{ OPT_UNKNOWN } /* The end */
+};
+
 void chk_t_global(const char *token, char *value)
 {
 	char *saveptr1 = NULL;
 
-#if defined(QBOXHD) || defined(__ARM__)
-	if (!strcmp(token, "enableled")) {
-		cfg.enableled = strToIntVal(value, 0);
+	if (parse_config_list(global_opts, token, value))
 		return;
-	}
-#endif
 
 	if (!strcmp(token, "disablelog")) {
 		cs_disable_log(strToIntVal(value, 0));
-		return;
-	}
-
-	if (!strcmp(token, "disableuserfile")) {
-		cfg.disableuserfile = strToIntVal(value, 1);
-		return;
-	}
-
-	if (!strcmp(token, "disablemail")) {
-		cfg.disablemail = strToIntVal(value, 1);
 		return;
 	}
 
@@ -531,11 +622,6 @@ void chk_t_global(const char *token, char *value)
 		return;
 	}
 
-	if (!strcmp(token, "usrfileflag")) {
-		cfg.usrfileflag = strToIntVal(value, 0);
-		return;
-	}
-
 	if (!strcmp(token, "clienttimeout")) {
 		cfg.ctimeout = strToUIntVal(value, CS_CLIENT_TIMEOUT);
 		if (cfg.ctimeout < 100) cfg.ctimeout *= 1000;
@@ -545,36 +631,6 @@ void chk_t_global(const char *token, char *value)
 	if (!strcmp(token, "fallbacktimeout")) {
 		cfg.ftimeout = strToUIntVal(value, (CS_CLIENT_TIMEOUT / 2));
 		if (cfg.ftimeout < 100) cfg.ftimeout *= 1000;
-		return;
-	}
-
-	if (!strcmp(token, "clientmaxidle")) {
-		cfg.cmaxidle = strToUIntVal(value, CS_CLIENT_MAXIDLE);
-		return;
-	}
-
-	if (!strcmp(token, "cachedelay")) {
-		cfg.delay = strToUIntVal(value, CS_DELAY);
-		return;
-	}
-
-	if (!strcmp(token, "bindwait")) {
-		cfg.bindwait = strToIntVal(value, CS_BIND_TIMEOUT);
-		return;
-	}
-
-	if (!strcmp(token, "netprio")) {
-		cfg.netprio = strToIntVal(value, 0);
-		return;
-	}
-
-	if (!strcmp(token, "sleep")) {
-		cfg.tosleep = strToIntVal(value, 0);
-		return;
-	}
-
-	if (!strcmp(token, "unlockparental")) {
-		cfg.ulparent = strToIntVal(value, 0);
 		return;
 	}
 
@@ -606,54 +662,12 @@ void chk_t_global(const char *token, char *value)
 		return;
 	}
 
-	if( !strcmp(token, "waitforcards")) {
-		cfg.waitforcards = strToIntVal(value, 1);
-		return;
-	}
 
-	if( !strcmp(token, "waitforcards_extra_delay")) {
-		cfg.waitforcards_extra_delay = strToIntVal(value, 0);
-		return;
-	}
 
-	if( !strcmp(token, "preferlocalcards")) {
-		cfg.preferlocalcards = strToIntVal(value, 0);
-		return;
-	}
 
-	if( !strcmp(token, "saveinithistory")) {
-		cfg.saveinithistory = strToIntVal(value, 0);
-		return;
-	}
 
-	if (!strcmp(token, "readerrestartseconds")) {
-		cfg.reader_restart_seconds = strToIntVal(value, 5);
-		return;
-	}
-
-	if (!strcmp(token, "dropdups")) {
-		cfg.dropdups = strToIntVal(value, 0);
-		return;
-	}
-
-#ifdef CS_CACHEEX
-	if (!strcmp(token, "cacheexwaittime")) {
-			cfg.cacheex_wait_time = strToIntVal(value, DEFAULT_CACHEEX_WAIT_TIME);
-			return;
-		}
-
-	if (!strcmp(token, "cacheexenablestats")) {
-			cfg.cacheex_enable_stats = strToIntVal(value, 0);
-			return;
-		}
-#endif
 
 #ifdef WITH_LB
-	if (!strcmp(token, "readerautoloadbalance") || !strcmp(token, "lb_mode")) {
-		cfg.lb_mode = strToIntVal(value, DEFAULT_LB_MODE);
-		return;
-	}
-
 	if (!strcmp(token, "readerautoloadbalance_save") || !strcmp(token, "lb_save")) {
 		cfg.lb_save = strToIntVal(value, 0);
 		if (cfg.lb_save  > 0 && cfg.lb_save  < 100) {
@@ -667,31 +681,6 @@ void chk_t_global(const char *token, char *value)
 		cfg.lb_nbest_readers = strToIntVal(value, DEFAULT_NBEST);
 		if (cfg.lb_nbest_readers < 2)
 			cfg.lb_nbest_readers = DEFAULT_NBEST;
-		return;
-	}
-
-	if (!strcmp(token, "lb_nfb_readers")) {
-		cfg.lb_nfb_readers = strToIntVal(value, DEFAULT_NFB);
-		return;
-	}
-
-	if (!strcmp(token, "lb_min_ecmcount")) {
-		cfg.lb_min_ecmcount = strToIntVal(value, DEFAULT_MIN_ECM_COUNT);
-		return;
-	}
-
-	if (!strcmp(token, "lb_max_ecmcount")) {
-		cfg.lb_max_ecmcount = strToIntVal(value, DEFAULT_MAX_ECM_COUNT);
-		return;
-	}
-
-	if (!strcmp(token, "lb_reopen_seconds")) {
-		cfg.lb_reopen_seconds = strToIntVal(value, DEFAULT_REOPEN_SECONDS);
-		return;
-	}
-
-	if (!strcmp(token, "lb_retrylimit")) {
-		cfg.lb_retrylimit = strToIntVal(value, DEFAULT_RETRYLIMIT);
 		return;
 	}
 
@@ -719,69 +708,10 @@ void chk_t_global(const char *token, char *value)
 		return;
 	}
 
-	if (!strcmp(token, "lb_stat_cleanup")) {
-		cfg.lb_stat_cleanup = strToIntVal(value, DEFAULT_LB_STAT_CLEANUP);
-		return;
-	}
-
-	if (!strcmp(token, "lb_reopen_mode")) {
-		cfg.lb_reopen_mode = strToIntVal(value, DEFAULT_LB_REOPEN_MODE);
-		return;
-	}
-
-	if (!strcmp(token, "lb_max_readers")) {
-		cfg.lb_max_readers = strToIntVal(value, 0);
-		return;
-	}
-
-	if (!strcmp(token, "lb_auto_betatunnel")) {
-		cfg.lb_auto_betatunnel = strToIntVal(value, DEFAULT_LB_AUTO_BETATUNNEL);
-		return;
-	}
-	
-	if (!strcmp(token, "lb_auto_betatunnel_prefer_beta")) {
-		cfg.lb_auto_betatunnel_prefer_beta = strToIntVal(value, DEFAULT_LB_AUTO_BETATUNNEL_PREFER_BETA);
-		return;
-	}
 #endif
 
 	if (!strcmp(token, "ecmfmt")) {
 		strncpy(cfg.ecmfmt, value, sizeof(cfg.ecmfmt));
-		return;
-	}
-
-	if (!strcmp(token, "resolvegethostbyname")) {
-		cfg.resolve_gethostbyname = strToIntVal(value, 0);
-		return;
-	}
-
-	if (!strcmp(token, "failbantime")) {
-		cfg.failbantime = strToIntVal(value, 0);
-		return;
-	}
-
-	if (!strcmp(token, "failbancount")) {
-		cfg.failbancount = strToIntVal(value, 0);
-		return;
-	}
-
-	if (!strcmp(token, "suppresscmd08")) {
-		cfg.c35_suppresscmd08 = strToIntVal(value, 0);
-		return;
-	}
-
-	if (!strcmp(token, "double_check")) {
-		cfg.double_check = strToIntVal(value, 0);
-		return;
-	}
-
-	if (!strcmp(token, "max_cache_time")) {
-		cfg.max_cache_time = strToIntVal(value, 0);
-		return;
-	}
-	
-	if (!strcmp(token, "max_cache_count")) {
-		cfg.max_cache_count = strToIntVal(value, 0);
 		return;
 	}
 
