@@ -187,11 +187,7 @@
 #endif
 #define PTHREAD_STACK_SIZE PTHREAD_STACK_MIN+32768
 
-#ifdef  CS_EMBEDDED
-#define CS_MAXPENDING   16
-#else
 #define CS_MAXPENDING   32
-#endif
 
 #define CS_MAXEMMBLOCKBYLEN 10
 
