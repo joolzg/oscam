@@ -187,8 +187,6 @@
 #endif
 #define PTHREAD_STACK_SIZE PTHREAD_STACK_MIN+32768
 
-#define CS_MAXPENDING   32
-
 #define CS_MAXEMMBLOCKBYLEN 10
 
 #define CS_EMMCACHESIZE  127 //nr of EMMs that each client will cache; cache is per client, so memory-expensive...
@@ -1663,6 +1661,8 @@ struct s_config
 	int8_t global_whitelist_use_m;
 
 	char ecmfmt[ECM_FMT_LEN];
+
+	uint8_t max_pending;
 };
 
 struct s_clientinit

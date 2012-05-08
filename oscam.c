@@ -336,7 +336,7 @@ static void usage()
 #ifdef WEBIF
   fprintf(stderr, "oscam [-a] [-b] [-s] [-c <config dir>] [-t <tmp dir>] [-d <level>] [-r <level>] [-w <secs>] [-g <mode>] [-u] [-h]");
 #else
-	fprintf(stderr, "oscam [-a] [-b] [-s] [-c <config dir>] [-t <tmp dir>] [-d <level>] [-w <secs>] [-g <mode>] [-h]");
+	fprintf(stderr, "oscam [-a] [-b] [-s] [-c <config dir>] [-t <tmp dir>] [-d <level>] [-w <secs>] [-g <mode>] [-p <max_pending>] [-h]");
 #endif
   fprintf(stderr, "\n\n\t-a         : write oscam.crash on segfault (needs installed GDB and OSCam compiled with debug infos -ggdb)\n");
   fprintf(stderr, "\t-b         : start in background\n");
@@ -374,6 +374,7 @@ static void usage()
 #ifdef WEBIF 
   fprintf(stderr, "\t-u         : enable output of web interface in UTF-8 charset\n");
 #endif
+  fprintf(stderr, "\t-p <num>   : how much pending packets to keep (default 32)\n");
   fprintf(stderr, "\t-h         : show this help\n");
   fprintf(stderr, "\n");
   exit(1);
@@ -594,7 +595,7 @@ static void cleanup_ecmtasks(struct s_client *cl)
 
 	if (cl->ecmtask) {
 		int32_t i;
-		for (i=0; i<CS_MAXPENDING; i++) {
+		for (i=0; i<cfg.max_pending; i++) {
 			ecm = &cl->ecmtask[i];
 			ecm->matching_rdr=NULL;
 			ecm->client = NULL;
@@ -638,7 +639,7 @@ static void cleanup_ecmtasks(struct s_client *cl)
 		if (rdr->client && rdr->client->ecmtask) {
 			ECM_REQUEST *ecm;
 			int i;
-			for (i=0; i<CS_MAXPENDING; i++) {
+			for (i=0; i<cfg.max_pending; i++) {
 				ecm = &rdr->client->ecmtask[i];
 				if (ecm->client == cl)
 					ecm->client = NULL;
@@ -2236,7 +2237,7 @@ ECM_REQUEST *get_ecmtask()
 	er->rc=E_UNHANDLED;
 	er->client=cl;
 	er->grp = cl->grp;
-	//cs_log("client %s ECMTASK %d multi %d ctyp %d", username(cl), n, (ph[cl->ctyp].multi)?CS_MAXPENDING:1, cl->ctyp);
+	//cs_log("client %s ECMTASK %d multi %d ctyp %d", username(cl), n, (ph[cl->ctyp].multi)?cfg.max_pending:1, cl->ctyp);
 
 	return(er);
 }
@@ -3855,7 +3856,7 @@ void * work_thread(void *ptr) {
 
 				reader->last_g=now; // for reconnect timeout
 
-				for (i=0, n=0; i<CS_MAXPENDING && n == 0; i++) {
+				for (i=0, n=0; i<cfg.max_pending && n == 0; i++) {
 					if (cl->ecmtask[i].idx==idx) {
 						cl->pending--;
 						casc_check_dcw(reader, i, rc, dcw);
@@ -4525,6 +4526,8 @@ static void restart_daemon()
 
 int32_t main (int32_t argc, char *argv[])
 {
+	uint8_t max_pending = 32;
+
 	prog_name = argv[0];
 	if (pthread_key_create(&getclient, NULL)) {
 		fprintf(stderr, "Could not create getclient, exiting...");
@@ -4631,7 +4634,7 @@ int32_t main (int32_t argc, char *argv[])
 	0
   };
 
-  while ((i=getopt(argc, argv, "g:bsauc:t:d:r:w:hm:x"))!=EOF)
+  while ((i=getopt(argc, argv, "g:bsauc:t:d:r:w:hm:xp:"))!=EOF)
   {
 	  switch(i) {
 		  case 'g':
@@ -4680,6 +4683,9 @@ int32_t main (int32_t argc, char *argv[])
 		  case 'm':
 				printf("WARNING: -m parameter is deprecated, ignoring it.\n");
 				break;
+		  case 'p':
+			  max_pending = atoi(optarg);
+			  break;
 		  case 'h':
 		  default :
 			  usage();
@@ -4703,6 +4709,7 @@ int32_t main (int32_t argc, char *argv[])
 #endif
 
   memset(&cfg, 0, sizeof(struct s_config));
+  cfg.max_pending = MIN(max_pending, 1);
 
   if (cs_confdir[strlen(cs_confdir)]!='/') strcat(cs_confdir, "/");
   init_signal_pre(); // because log could cause SIGPIPE errors, init a signal handler first
