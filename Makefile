@@ -69,7 +69,7 @@ nptar:	clean
 ######################################################################
 i386-pc-linux:
 	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
+		-f Maketype TYP=$(subst i386,$(shell uname -m),$(subst cross-,,$@)) \
 		OS_LIBS="-lcrypto" \
 		DS_OPTS="-DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO" \
 		DS_CFLAGS="" \
@@ -82,7 +82,7 @@ i386-pc-linux:
 
 i386-pc-linux-debug:
 	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
+		-f Maketype TYP=$(subst i386,$(shell uname -m),$(subst cross-,,$@)) \
 		DEBUG=1 \
 		OS_LIBS="-lcrypto -lrt" \
 		DS_OPTS="-DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO" \
@@ -99,7 +99,7 @@ i386-pc-linux-debug:
 ######################################################################
 i386-pc-linux-libusb:
 	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
+		-f Maketype TYP=$(subst i386,$(shell uname -m),$(subst cross-,,$@)) \
         	LIBUSB="/usr/local/lib/libusb-1.0.a" \
 		OS_LIBS="-lcrypto -lrt" \
 		DS_OPTS="-DLIBUSB -DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -I/usr/local/include" \
@@ -118,7 +118,7 @@ i386-pc-linux-libusb:
 ######################################################################
 i386-pc-linux-pcsc:
 	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
+		-f Maketype TYP=$(subst i386,$(shell uname -m),$(subst cross-,,$@)) \
 		OS_LIBS="-lcrypto" \
 		OS_PTLI="-lpcsclite" \
 		DS_OPTS="-DCS_CONFDIR=${CS_CONFDIR} -DWITH_LIBCRYPTO -DHAVE_PCSC=1 -I/usr/include/PCSC" \
@@ -137,7 +137,7 @@ i386-pc-linux-pcsc:
 ######################################################################
 i386-pc-linux-pcsc-libusb:
 	@-$(MAKE) --no-print-directory \
-		-f Maketype TYP=$(subst i386,$(shell uname --machine),$(subst cross-,,$@)) \
+		-f Maketype TYP=$(subst i386,$(shell uname -m),$(subst cross-,,$@)) \
         	LIBUSB="/usr/local/lib/libusb-1.0.a" \
 		OS_LIBS="-lcrypto -lrt" \
 		OS_PTLI="-lpcsclite" \
