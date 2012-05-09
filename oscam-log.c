@@ -48,7 +48,7 @@ static void switch_log(char* file, FILE **f, int32_t (*pfinit)(void))
 			}
 			else
 				if( pfinit()){
-					fprintf(stderr, "Initialisation of log file failed, continuing without logging thread %8X. Log will be output to stdout!", (unsigned int)pthread_self());
+					fprintf(stderr, "Initialisation of log file failed, continuing without logging thread %p. Log will be output to stdout!", pthread_self());
 					cfg.logtostdout = 1;
 				}
 		}
