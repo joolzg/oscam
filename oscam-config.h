@@ -162,17 +162,9 @@
 
 
 #ifdef TUXBOX
-#  if defined(__MIPSEL__)
-#    define CS_LOGFILE "/dev/null"
-#  else
-#    define CS_LOGFILE "/dev/tty"
-#  endif
 #  define CS_EMBEDDED
 #  if !defined(COOL) && !defined(SCI_DEV)
 #    define SCI_DEV 1
-#  endif
-#  ifndef HAVE_DVBAPI
-#    define HAVE_DVBAPI
 #  endif
 #endif
 

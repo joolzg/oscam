@@ -58,7 +58,6 @@ bool IO_Serial_WaitToRead (struct s_reader * reader, uint32_t delay_ms, uint32_t
 
 static bool IO_Serial_WaitToWrite (struct s_reader * reader, uint32_t delay_ms, uint32_t timeout_ms);
 
-#if defined(TUXBOX) && defined(__powerpc__)
 void IO_Serial_Ioctl_Lock(struct s_reader * reader, int32_t flag)
 {
   static int32_t oscam_sem=0;
@@ -81,7 +80,6 @@ static bool IO_Serial_DTR_RTS_dbox2(struct s_reader * reader, int32_t * dtr, int
 {
   int32_t rc;
   uint16_t msr;
-  uint32_t mbit;
   uint16_t rts_bits[2]={ 0x10, 0x800};
   uint16_t dtr_bits[2]={0x100,     0};
   int32_t mcport = (reader->typ == R_DB2COM2);
@@ -116,14 +114,11 @@ static bool IO_Serial_DTR_RTS_dbox2(struct s_reader * reader, int32_t * dtr, int
 		return ERROR;
 	return OK;
 }
-#endif
 
 bool IO_Serial_DTR_RTS(struct s_reader * reader, int32_t * dtr, int32_t * rts)
 {
-#if defined(TUXBOX) && defined(__powerpc__)
 	if ((reader->typ == R_DB2COM1) || (reader->typ == R_DB2COM2))
 		return(IO_Serial_DTR_RTS_dbox2(reader, dtr, rts));
-#endif
 
 	uint32_t msr;
 	uint32_t mbit;
@@ -523,9 +518,7 @@ bool IO_Serial_Close (struct s_reader * reader)
 	
 	cs_debug_mask(D_DEVICE, "IO: Closing serial port %s\n", reader->device);
 	cs_sleepms(100); // maybe a dirty fix for the restart problem posted by wonderdoc
-#if defined(TUXBOX) && defined(__powerpc__)
 	if(reader->fdmc >= 0) close(reader->fdmc);
-#endif
 	if (reader->handle >= 0 && close (reader->handle) != 0)
 		return ERROR;
 	

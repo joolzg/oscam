@@ -101,22 +101,20 @@ int32_t Sci_WriteSettings (struct s_reader * reader, BYTE T, uint32_t fs, uint32
 
 int32_t Sci_Activate (struct s_reader * reader)
 {
-		cs_debug_mask(D_IFD, "IFD: Activating card");
-		int32_t in;
+	cs_debug_mask(D_IFD, "IFD: Activating card");
+	int32_t in;
 
-#if defined(TUXBOX) && (defined(__MIPSEL__) || defined(__powerpc__) || defined(__SH4__))
+	cs_debug_mask(D_IFD, "IFD: Is card activated?");
+	if (ioctl(reader->handle, IOCTL_GET_IS_CARD_ACTIVATED, &in) < 0) {
 		cs_debug_mask(D_IFD, "IFD: Is card present?");
-		call (ioctl(reader->handle, IOCTL_GET_IS_CARD_PRESENT, &in)<0);
-#else
-		cs_debug_mask(D_IFD, "IFD: Is card activated?");
-		call (ioctl(reader->handle, IOCTL_GET_IS_CARD_ACTIVATED, &in)<0);
-#endif
-			
-		if(in)
-			cs_sleepms(50);
-		else
-			return ERROR;
-		return OK;
+		call(ioctl(reader->handle, IOCTL_GET_IS_CARD_PRESENT, &in) < 0);
+	}
+
+	if(in)
+		cs_sleepms(50);
+	else
+		return ERROR;
+	return OK;
 }
 
 int32_t Sci_Deactivate (struct s_reader * reader)
@@ -124,11 +122,8 @@ int32_t Sci_Deactivate (struct s_reader * reader)
 	cs_debug_mask(D_IFD, "IFD: Deactivating card");
 	int32_t in;
 		
-#if defined(TUXBOX) && (defined(__MIPSEL__) || defined(__powerpc__) || defined(__SH4__))
-	call (ioctl(reader->handle, IOCTL_GET_IS_CARD_PRESENT, &in)<0);
-#else
-	call (ioctl(reader->handle, IOCTL_GET_IS_CARD_ACTIVATED, &in)<0);
-#endif
+	if (ioctl(reader->handle, IOCTL_GET_IS_CARD_ACTIVATED, &in) < 0)
+		call(ioctl(reader->handle, IOCTL_GET_IS_CARD_PRESENT, &in) < 0);
 			
 	if(in)
 		call (ioctl(reader->handle, IOCTL_SET_DEACTIVATE)<0);
