@@ -1302,9 +1302,7 @@ void start_thread(void * startroutine, char * nameroutine) {
 	pthread_attr_t attr;
 	pthread_attr_init(&attr);
 	cs_log("starting thread %s", nameroutine);
-#ifndef TUXBOX
 	pthread_attr_setstacksize(&attr, PTHREAD_STACK_SIZE);
-#endif
 	cs_writelock(&system_lock);
 	int32_t ret = pthread_create(&temp, &attr, startroutine, NULL);
 	if (ret)
@@ -3980,12 +3978,10 @@ void add_job(struct s_client *cl, int8_t action, void *ptr, int32_t len) {
 
 	pthread_attr_t attr;
 	pthread_attr_init(&attr);
-#if !defined(TUXBOX)
 	/* pcsc doesn't like this either; segfaults on x86, x86_64 */
 	struct s_reader *rdr = cl->reader;
 	if(cl->typ != 'r' || !rdr || rdr->typ != R_PCSC)
 		pthread_attr_setstacksize(&attr, PTHREAD_STACK_SIZE);
-#endif
 
 	cs_debug_mask(D_TRACE, "start %s thread action %d", action > ACTION_CLIENT_FIRST ? "client" : "reader", action);
 
@@ -4937,9 +4933,7 @@ void arm_led_start_thread() {
 	pthread_attr_t attr;
 	pthread_attr_init(&attr);
 	cs_log("starting thread arm_led_thread");
-#ifndef TUXBOX
 	pthread_attr_setstacksize(&attr, PTHREAD_STACK_SIZE);
-#endif
 	int32_t ret = pthread_create(&arm_led_thread, &attr, arm_led_thread_main, NULL);
 	if (ret)
 		cs_log("ERROR: can't create arm_led_thread thread (errno=%d %s)", ret, strerror(ret));
