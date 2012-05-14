@@ -160,11 +160,6 @@
 #define CS_CACHEEX
 #endif
 
-
-#ifdef TUXBOX
-#  define CS_EMBEDDED
-#endif
-
 #if defined(WITH_SSL) && !defined(WITH_LIBCRYPTO)
 #  define WITH_LIBCRYPTO
 #endif
