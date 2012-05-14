@@ -163,9 +163,6 @@
 
 #ifdef TUXBOX
 #  define CS_EMBEDDED
-#  if !defined(COOL) && !defined(SCI_DEV)
-#    define SCI_DEV 1
-#  endif
 #endif
 
 #if defined(WITH_SSL) && !defined(WITH_LIBCRYPTO)
